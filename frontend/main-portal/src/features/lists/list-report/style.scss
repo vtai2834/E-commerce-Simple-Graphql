@@ -1,0 +1,33 @@
+.list-reports {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+
+  .list-reports__card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .list-reports__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .list-reports__table {
+    background-color: white;
+    padding-top: 20px;
+  }
+
+  // Optional: custom style cho pagination nếu cần
+  .custom-table-pagination {
+    text-align: right;
+    margin-top: 16px;
+
+    .ant-pagination-total-text {
+      font-weight: 500;
+      color: #555;
+    }
+  }
+}

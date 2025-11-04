@@ -1,0 +1,30 @@
+{
+  "name": "product-service",
+  "version": "1.0.0",
+  "main": "app/index.js",
+  "scripts": {
+    "start-local": "NODE_ENV=dev PORT=9002 nodemon app",
+    "start": "cross-env NODE_ENV=dev nodemon app"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "Product service for e-commerce platform",
+  "dependencies": {
+    "@apollo/server": "^5.0.0",
+    "@apollo/subgraph": "^2.11.2",
+    "@as-integrations/express5": "^1.1.2",
+    "body-parser": "^2.2.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "graphql": "^16.11.0",
+    "graphql-tag": "^2.12.6",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.18.1",
+    "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "cross-env": "^10.0.0"
+  }
+}
+

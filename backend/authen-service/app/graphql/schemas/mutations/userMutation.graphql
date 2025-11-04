@@ -1,0 +1,6 @@
+extend type Mutation {
+  loginPatient(input: LoginInput!): AuthPayload!
+  loginPhysician(input: LoginInput!): AuthPayload!
+  logout(input: LogoutInput!): AuthResponse!
+  refreshToken(input: RefreshTokenInput!): AuthResponse!
+}

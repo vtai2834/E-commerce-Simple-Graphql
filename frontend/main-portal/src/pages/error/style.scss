@@ -1,0 +1,9 @@
+.ambulance {
+  animation: drive 3s infinite linear;
+}
+
+@keyframes drive {
+  0%   { transform: translateX(-30px); }
+  50%  { transform: translateX(30px); }
+  100% { transform: translateX(-30px); }
+}

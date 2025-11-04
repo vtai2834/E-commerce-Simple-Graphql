@@ -1,0 +1,5 @@
+input LoginInput {
+  email: String!
+  password: String!
+  role: String! # 'PHYSICIAN' hoặc 'PATIENT'
+}

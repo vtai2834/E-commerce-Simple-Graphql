@@ -1,0 +1,6 @@
+input CreateOrderInput {
+  userId: String!
+  items: [OrderItemInput!]!
+  shippingAddress: ShippingAddressInput
+}
+

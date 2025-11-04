@@ -1,0 +1,10 @@
+input UpdateProductInput {
+  name: String
+  description: String
+  price: Float
+  stock: Int
+  category: String
+  image: String
+  status: ProductStatus
+}
+

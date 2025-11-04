@@ -1,0 +1,4 @@
+extend type Query {
+  users(filter: UserFilterInput, limit: Int!): [User]
+  getMeInfo: AuthPayload!
+}

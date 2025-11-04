@@ -1,0 +1,6 @@
+input ProductFilterInput {
+  name: String
+  category: String
+  status: ProductStatus
+}
+

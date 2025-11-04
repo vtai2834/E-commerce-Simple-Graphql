@@ -1,0 +1,175 @@
+.list-appointment {
+  display: flex;
+  gap: 20px;
+
+  &__sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__calendar {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+
+    &--toolbar {
+      display: flex;
+      gap: 8px;
+    }
+  }
+}
+
+.fc {
+  font-size: 16px;
+
+  tr {
+    height: 60px;
+  }
+
+  .fc-daygrid-day.fc-day-today {
+    background: #e0f2fe;
+  }
+
+  .fc-timegrid-slot.fc-timegrid-slot-lane {
+    background-color: #ffffff;
+  }
+
+  .fc-toolbar-chunk button {
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    margin: 0 4px;
+    padding: 4px 10px;
+    color: #374151;
+    font-weight: 500;
+    transition: all 0.2s ease;
+
+    &:hover {
+      background: #f3f4f6;
+      border-color: #cbd5e1;
+      color: #0c4a6e;
+    }
+
+    &:focus {
+      outline: none;
+      box-shadow: 0 0 0 2px #60a5fa;
+    }
+  }
+
+  .fc-timegrid-slot {
+    height: 3em;
+  }
+
+  .fc-event {
+    border: none;
+    background: transparent;
+    padding: 0;
+    color: #0c4a6e;
+
+    h1 {
+      color: #374151;
+      font-size: 1em;
+      margin: 0;
+      padding: 0;
+      font-weight: 600;
+    }
+  }
+
+  .fc-event-main {
+    padding: 6px;
+    border-radius: 6px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+}
+
+.item-appointment {
+  display: flex;
+  flex-direction: column;
+  padding: 4px;
+  border-radius: 6px;
+  width: 100%;
+  border: 1px solid #ddd;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-left: 6px solid #4a90e2;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: hidden;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  &.current {
+    border-left-color: #0284c7;
+    background-color: #e0f2fe;
+  }
+
+  &.scheduled {
+    border-left-color: #4a90e2;
+  }
+
+  &.completed {
+    border-left-color: #22c55e;
+  }
+
+  &.cancelled {
+    border-left-color: #ef4444;
+  }
+
+  h1 {
+    color: #374151;
+    font-size: 1em;
+    margin: 0;
+    padding: 0;
+    font-weight: 600;
+  }
+
+  .appointment-time {
+    font-size: 0.8em;
+    color: gray;
+  }
+
+  .appointment-patient {
+    font-size: 0.8em;
+    color: #0c4a6e;
+    font-weight: 500;
+  }
+}
+
+.filter-day {
+  button {
+    margin: 0px 5px 0px 0px;
+  }
+}
+
+.list-appointment__calendar--toolbar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.add-appointment button{
+  border-radius: 4px; /* Makes the corners slightly rounded, "vuông vuông xíu" */
+  background-color: rgba(50, 100, 175);
+  color: white; /* Sets the text color to white */
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.appointment-status {
+  &.scheduled {
+    color: #4a90e2;
+  }
+
+  &.completed {
+    color: #22c55e;
+  }
+
+  &.cancelled {
+    color: #ef4444;
+  }
+}

@@ -1,0 +1,39 @@
+.dashboard-menu {
+  background-color: #f8fafc;
+
+  .ant-menu-title-content {
+    color: #003a70;
+    font-weight: 600;
+    font-size: 16px;
+  }
+
+  .ant-menu .ant-menu-item-selected {
+    background-color: #1976D2 !important;
+    color: #1565C0 !important;
+  }
+}
+
+.dashboard-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid #e5e7eb;
+  display: flex;
+  justify-content: space-between;
+  color: #3164AF;
+
+  &__title {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  &__logout {
+    background-color: #fff;
+    color: #dc2626;
+    border-color: #dc2626;
+
+    &:hover {
+      background-color: #ffffff;
+      color: #ffffff;
+    }
+  }
+}

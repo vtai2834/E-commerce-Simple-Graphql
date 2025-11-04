@@ -1,0 +1,243 @@
+.nearest-appointment-container {
+  // padding: 24px;
+  // background: #f5f7fa;
+  min-height: 100vh;
+
+  .page-header-card {
+    margin-bottom: 24px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+
+    .page-title {
+      margin-bottom: 8px;
+      color: #1a1a1a;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+  }
+
+  .centered-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+    background: white;
+    border-radius: 12px;
+  }
+
+  .error-card,
+  .empty-card {
+    border-radius: 12px;
+    min-height: 300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .content-row {
+    .calendar-card {
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+      height: fit-content;
+      position: sticky;
+      top: 24px;
+
+      .ant-picker-calendar {
+        .ant-picker-cell-selected .ant-picker-cell-inner {
+          background: #1890ff;
+          color: white;
+        }
+
+        .ant-badge-status {
+          position: absolute;
+          bottom: 4px;
+          right: 50%;
+          transform: translateX(50%);
+        }
+      }
+    }
+
+    .appointments-list {
+      .list-title {
+        margin-bottom: 16px;
+        color: #1a1a1a;
+      }
+
+      .appointments-space {
+        width: 100%;
+      }
+    }
+  }
+
+  .appointment-card {
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+
+    &:hover {
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      transform: translateY(-2px);
+    }
+
+    &.nearest-appointment {
+      border-color: #4dbcd8;
+      background: linear-gradient(135deg, #def8ff 0%, #ffffff 100%);
+      box-shadow: 0 4px 16px rgb(222, 248, 255);
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 4px;
+        height: 100%;
+        background: linear-gradient(180deg, #4dbcd8 0%, #4dbcd8 100%);
+      }
+    }
+
+    .nearest-badge {
+      position: absolute;
+      top: 25px;
+      left: 150px;
+      color: #1a1a1a;
+      z-index: 1;
+    }
+
+    .appointment-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 12px;
+
+      .appointment-title {
+        margin: 0;
+        color: #1a1a1a;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex: 1;
+      }
+    }
+
+    .appointment-divider {
+      margin: 16px 0;
+    }
+
+    .appointment-details {
+      width: 100%;
+
+      .detail-row {
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+
+        .detail-icon {
+          font-size: 18px;
+          color: #1890ff;
+          margin-top: 4px;
+          flex-shrink: 0;
+        }
+
+        .detail-content {
+          flex: 1;
+          display: flex;
+          flex-direction: column;
+          gap: 4px;
+
+          .ant-typography {
+            margin: 0;
+          }
+
+          .detail-value {
+            color: #262626;
+            font-size: 15px;
+          }
+
+          .detail-time {
+            color: #1890ff;
+            font-weight: 500;
+            font-size: 16px;
+          }
+
+          &.note-content {
+            .note-text {
+              color: #595959;
+              font-style: italic;
+              background: #f5f5f5;
+              padding: 8px 12px;
+              border-radius: 6px;
+              border-left: 3px solid #d9d9d9;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 992px) {
+  .nearest-appointment-container {
+    padding: 16px;
+
+    .page-header-card {
+      .page-title {
+        font-size: 20px;
+      }
+    }
+
+    .content-row {
+      .calendar-card {
+        position: static;
+      }
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .nearest-appointment-container {
+    padding: 12px;
+    background: white;
+
+    .page-header-card {
+      margin-bottom: 16px;
+    }
+
+    .appointment-card {
+      .appointment-header {
+        flex-direction: column;
+        gap: 8px;
+
+        .nearest-badge {
+          position: static;
+        }
+      }
+
+      .appointment-details {
+        .detail-row {
+          .detail-icon {
+            font-size: 16px;
+          }
+
+          .detail-content {
+            .detail-value {
+              font-size: 14px;
+            }
+
+            .detail-time {
+              font-size: 15px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+:where(.css-dev-only-do-not-override-1bstkdm).ant-tag.ant-tag-gold {
+  color: #ffb9ce;
+}

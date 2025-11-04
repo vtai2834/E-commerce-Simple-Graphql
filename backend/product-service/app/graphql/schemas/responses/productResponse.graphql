@@ -1,0 +1,14 @@
+type ProductResponse {
+  code: Int!
+  isSuccess: Boolean!
+  message: String!
+  data: Product
+}
+
+type ProductListResponse {
+  code: Int!
+  isSuccess: Boolean!
+  message: String!
+  data: [Product]
+}
+

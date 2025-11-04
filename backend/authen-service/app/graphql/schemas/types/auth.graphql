@@ -1,0 +1,8 @@
+type AuthPayload @shareable {
+  isSuccess: Boolean
+  code: Int
+  message: String
+  accessToken: String
+  refreshToken: String
+  user: User
+}

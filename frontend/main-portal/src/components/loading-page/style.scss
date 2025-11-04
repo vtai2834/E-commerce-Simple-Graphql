@@ -1,0 +1,29 @@
+@use '../../styles/variables' as *;
+
+.loading-page {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  background-color: rgba(0, 0, 0, 0.15);
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 3rem;
+    gap: 1rem;
+    background-color: $white;
+    border-radius: 0.25rem;
+    margin-bottom: 3rem;
+    padding: 0 1rem;
+  }
+
+  &__text {
+    color: $text-color;
+    font-weight: bold;
+  }
+}

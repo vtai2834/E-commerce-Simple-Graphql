@@ -1,0 +1,17 @@
+.notes-modal {
+  .ant-modal-body {
+    padding: 16px 0;
+  }
+
+  &__content {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+
+  &__text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #333;
+    white-space: pre-wrap;
+  }
+}

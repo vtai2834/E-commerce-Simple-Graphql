@@ -1,0 +1,19 @@
+enum ProductStatus {
+  AVAILABLE
+  OUT_OF_STOCK
+  DISCONTINUED
+}
+
+type Product @key(fields: "id") {
+  id: ID! @shareable
+  name: String! @shareable
+  description: String! @shareable
+  price: Float! @shareable
+  stock: Int! @shareable
+  category: String! @shareable
+  image: String @shareable
+  status: ProductStatus! @shareable
+  createdAt: String @shareable
+  updatedAt: String @shareable
+}
+

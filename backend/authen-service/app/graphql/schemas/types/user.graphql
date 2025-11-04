@@ -1,0 +1,9 @@
+type User @key(fields: "id") {
+  id: ID
+  email: String
+  firstName: String
+  lastName: String
+  dob: String
+  role: String
+  facilities: [String]
+}

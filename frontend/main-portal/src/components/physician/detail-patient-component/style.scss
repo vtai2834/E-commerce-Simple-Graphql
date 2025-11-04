@@ -1,0 +1,222 @@
+.patient-info-container {
+
+    .patient-info-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      // margin-bottom: 24px;
+      background-color: white;
+      padding: 16px 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  
+      .header-left {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+  
+        .back-button {
+          padding: 4px 8px;
+          color: #666;
+          
+          &:hover {
+            color: #1890ff;
+            background-color: #f0f0f0;
+          }
+        }
+  
+        .page-title {
+          margin: 0;
+          font-size: 16px;
+          font-weight: 600;
+          color: #333;
+        }
+      }
+  
+      .header-right {
+        .facilities-select {
+          min-width: 140px;
+          
+          .ant-select-selector {
+            border: 1px solid #d9d9d9;
+            border-radius: 6px;
+          }
+        }
+      }
+    }
+  
+    .patient-info-card {
+      background-color: white;
+      padding: 24px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+  
+      .patient-basic-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+  
+        .patient-avatar {
+          flex-shrink: 0;
+        }
+  
+        .patient-details {
+          .patient-name {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+          }
+  
+          .patient-meta {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+  
+            .patient-gender,
+            .patient-age,
+            .patient-email {
+              font-size: 14px;
+              color: #666;
+              display: flex;
+              align-items: center;
+              gap: 4px;
+            }
+  
+            .view-patient-link {
+              padding: 0;
+              height: auto;
+              font-size: 14px;
+              color: #075095;
+              
+              &:hover {
+                color: #40a9ff;
+              }
+            }
+          }
+        }
+      }
+  
+      .patient-program-info {
+        display: flex;
+        align-items: flex-end; /* Changed from center to flex-end to align content to the right */
+        flex-direction: column;
+        gap: 15px;
+        // width: 20%;
+  
+        .program-details {
+          text-align: right;
+  
+          .program-label {
+            display: block;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 4px;
+          }
+  
+          .view-program-link {
+            padding: 0;
+            height: auto;
+            font-size: 14px;
+            color: #075095;
+            
+            &:hover {
+              color: #40a9ff;
+            }
+          }
+        }
+  
+        .action-buttons {
+          display: flex;
+          align-items: center;
+          gap: 12px;
+          justify-content: space-between;
+          flex-direction: row;
+          width: 100%;
+  
+          .notes-button {
+            padding: 2px 10px;
+            border: 1px solid #d9d9d9;
+            border-radius: 3px;
+            color: #075095;
+            border-color: #075095;
+            
+            &:hover {
+              color: #0457a4;
+              border-color: #0457a4;
+              background-color: #f0f8ff;
+            }
+          }
+  
+          .stop-program-button {
+            padding: 2px 14px;
+            border-radius: 3px;
+            font-weight: 500;
+            
+            &.ant-btn-dangerous {
+              background-color: white;
+              border-color: #ff4d4f;
+              color: #ff4d4f;
+              
+              &:hover {
+                background-color: #f0f8ff;
+                border-color: #930709;
+              color: #930709;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Responsive design
+  @media (max-width: 768px) {
+    .patient-info-container {
+      padding: 16px;
+  
+      .patient-info-header {
+        padding: 12px 16px;
+        
+        .header-left {
+          .page-title {
+            font-size: 14px;
+          }
+        }
+      }
+  
+      .patient-info-card {
+        padding: 16px;
+        flex-direction: column;
+        gap: 16px;
+        align-items: flex-start;
+  
+        .patient-basic-info {
+          width: 100%;
+          
+          .patient-details {
+            .patient-meta {
+              flex-direction: column;
+              align-items: flex-start;
+              gap: 8px;
+            }
+          }
+        }
+  
+        .patient-program-info {
+          width: 100%;
+          justify-content: space-between;
+          
+          .program-details {
+            text-align: left;
+          }
+        }
+      }
+    }
+  }
+  

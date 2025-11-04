@@ -1,0 +1,89 @@
+.list-patients {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: "Quicksand", sans-serif;
+  
+    /* Header */
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+  
+    /* Table */
+    &-table {
+      .ant-table {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  
+        th,
+        td {
+          font-family: "Quicksand", sans-serif !important;
+        }
+  
+        /* Header cells */
+        .ant-table-thead > tr > th {
+          background: #4096ff !important;
+          color: #fff !important;
+          font-weight: 600;
+          font-size: 14px;
+          border-bottom: none;
+        }
+  
+        /* Rows */
+        .ant-table-tbody > tr > td {
+          padding: 18px 16px; // tăng padding cho hàng cao hơn
+          font-size: 14px;
+          color: #444;
+          border-bottom: 1px solid #f0f0f0;
+        }
+  
+        .ant-table-tbody > tr:hover > td {
+          background: #f5faff !important;
+        }
+  
+        /* Action cell */
+        .ant-table-tbody > tr > td:last-child {
+          min-width: 160px; // rộng hơn cho thoáng
+        }
+  
+        /* Action buttons wrapper */
+        .action-buttons {
+          display: flex;
+          justify-content: start;
+          gap: 12px; // khoảng cách giữa các nút
+        }
+      }
+    }
+  }
+    
+  .list-patients-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .list-patients .cell-action{
+    display: flex;
+    gap: 10px;
+  }
+  
+  .list-patients h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+  }
+  
+  .ant-table-cell {
+    font-family: "Quicksand", sans-serif;
+  }
+  
+  .custom-table-pagination {
+    .ant-pagination-total-text {
+      margin-right: auto;
+    }
+  }

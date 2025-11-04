@@ -1,0 +1,145 @@
+@use './variables' as *;
+
+.Toastify__toast {
+  padding: 0.75rem 1rem !important;
+  margin: auto !important;
+  border-radius: 8px;
+  color: #fff !important;
+  font-size: 16px !important;
+  text-transform: uppercase;
+
+  &--success {
+    background-color: rgba(99, 221, 131, 0.8) !important; 
+  }
+
+  &--error {
+    background-color: rgba(240, 136, 129, 0.8) !important; 
+  }
+
+  &--info {
+    background-color: #2196f3 !important; 
+  }
+
+  &--warning {
+    background-color: #ff9800 !important;
+  }
+}
+
+
+/* Bỏ close mặc định */
+.Toastify__close-button {
+  display: none !important;
+}
+
+*,
+*::before,
+*::after {
+  font: inherit;
+  font-family: Quicksand, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  color: $text-color;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 22px;
+}
+
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+fieldset,
+form,
+label,
+legend,
+table,
+caption,
+tbody,
+tfoot,
+thead,
+tr,
+th,
+td,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+}
+
+img,
+picture,
+svg,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+  color: $text-color;
+  display: block;
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&family=Quicksand:wght@300..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap');

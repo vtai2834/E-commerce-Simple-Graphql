@@ -1,0 +1,14 @@
+type OrderResponse {
+  code: Int!
+  isSuccess: Boolean!
+  message: String!
+  data: Order
+}
+
+type OrderListResponse {
+  code: Int!
+  isSuccess: Boolean!
+  message: String!
+  data: [Order]
+}
+

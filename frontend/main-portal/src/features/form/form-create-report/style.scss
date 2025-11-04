@@ -1,0 +1,80 @@
+.form-create-report {
+  max-width: 600px;
+
+  .ant-form-item-label > label {
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .ant-form-item {
+    margin-bottom: 20px;
+  }
+
+  .ant-input,
+  .ant-picker {
+    border-radius: 8px;
+    height: 40px;
+  }
+
+  .ant-picker-range {
+    width: 100%;
+  }
+
+  textarea.ant-input {
+    min-height: 100px;
+    resize: none;
+  }
+
+  .form-submit {
+    text-align: center;
+    margin-top: 16px;
+
+    .ant-btn {
+      border-color: #3164af;
+      color: #3164af;
+      border-radius: 8px;
+      font-weight: 500;
+      transition: all 0.25s ease;
+
+      &:hover {
+        background-color: #3164af;
+        color: #fff;
+      }
+    }
+  }
+
+  // Responsive cho mobile
+  @media (max-width: 768px) {
+    padding: 16px;
+    .ant-form-item-label > label {
+      font-size: 14px;
+    }
+  }
+}
+
+.report-override-modal {
+  .ant-modal-title {
+    font-weight: 600;
+    color: #1f1f1f;
+  }
+
+  .ant-modal-content {
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .ant-btn-primary {
+    background-color: #3164af;
+    border-color: #3164af;
+    border-radius: 8px;
+
+    &:hover {
+      background-color: darken(#3164af, 8%);
+      border-color: darken(#3164af, 8%);
+    }
+  }
+
+  .ant-btn-default {
+    border-radius: 8px;
+  }
+}

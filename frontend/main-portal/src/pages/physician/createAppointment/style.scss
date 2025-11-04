@@ -1,0 +1,296 @@
+.page-back-bar {
+  display: flex;
+  align-items: center;
+  background: #fafbfc;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 8px 16px;
+  gap: 10px;
+  margin-bottom: 20px;
+
+  .back-icon {
+    font-size: 20px;
+    color: #1677ff;
+    cursor: pointer;
+    transition: color 0.2s;
+    &:hover {
+      color: #4096ff;
+    }
+  }
+
+  .page-back-title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 17px;
+    color: #222;
+  }
+}
+
+.createAppointment {
+    // width: 90%;
+    max-width: 800px;
+    margin: auto;
+    // padding: 40px 20px;
+    background-color: white;
+    min-height: 100vh;
+}
+
+.appointmentSection {
+    background: #ffffff;
+    padding: 25px;
+    margin-bottom: 24px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.sectionTitle {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    margin: 0 0 24px 0;
+}
+
+.formGroup {
+    margin-bottom: 24px;
+}
+
+.formLabel {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #000000;
+    margin-bottom: 8px;
+}
+
+.fieldLabel {
+    display: block;
+    font-size: 13px;
+    font-weight: 400;
+    color: #666666;
+    margin-bottom: 6px;
+}
+
+.formSelect {
+    width: 100%;
+}
+
+.facilityInfo {
+    background: #f5f5f5;
+    padding: 12px 16px;
+    border-radius: 6px;
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.facilityName {
+    font-weight: 600;
+    color: #000000;
+    font-size: 14px;
+}
+
+.facilityAddress {
+    color: #666666;
+    font-size: 13px;
+}
+
+.facilityClose {
+    position: absolute;
+    top: 12px;
+    right: 16px;
+    cursor: pointer;
+    color: #999999;
+    font-size: 12px;
+}
+
+.facilityClose:hover {
+    color: #000000;
+}
+
+.patientTypeGroup {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.patientTypeButton {
+    flex: 1;
+    text-align: center;
+    height: 40px;
+    line-height: 38px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    background: #ffffff;
+}
+
+.helperText {
+    font-size: 13px;
+    color: #666666;
+    margin: -16px 0 24px 0;
+}
+
+.searchInput {
+    height: 40px;
+}
+
+.patientCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    position: relative;
+}
+
+.patientAvatar {
+    width: 40px;
+    height: 40px;
+    flex-shrink: 0;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.patientInfo {
+    flex: 1;
+}
+
+.patientHeader {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.patientName {
+    font-weight: 600;
+    color: #000000;
+    font-size: 14px;
+}
+
+.patientTag {
+    font-size: 11px;
+    padding: 0 6px;
+    margin: 0;
+}
+
+.patientEmail {
+    font-size: 13px;
+    color: #666666;
+}
+
+.patientClose {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    cursor: pointer;
+    color: #999999;
+    font-size: 12px;
+}
+
+.patientClose:hover {
+    color: #000000;
+}
+
+.missingInfoAlert {
+    margin-bottom: 16px;
+    border-radius: 6px;
+}
+
+.patientDetails {
+    background: #fafafa;
+    padding: 16px;
+    border-radius: 6px;
+}
+
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.detailRow:not(:last-child) {
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.detailLabel {
+    font-size: 13px;
+    color: #666666;
+    font-weight: 500;
+}
+
+.detailValue {
+    font-size: 13px;
+    color: #000000;
+    font-weight: 400;
+}
+
+.appointmentTypeGroup {
+    display: flex;
+    gap: 12px;
+    width: 100%;
+}
+
+.appointmentTypeButton {
+    flex: 1;
+    text-align: center;
+    height: 40px;
+    line-height: 38px;
+    border-radius: 6px;
+    border: 1px solid #d9d9d9;
+    background: #ffffff;
+}
+
+.dateTimeRow {
+    display: flex;
+    gap: 16px;
+}
+
+.dateField {
+    flex: 1;
+}
+
+.timeField {
+    flex: 1;
+}
+
+.datePicker,
+.timePicker {
+    width: 100%;
+    height: 40px;
+}
+
+.attendeeField {
+    margin-bottom: 16px;
+}
+
+.attendeeField:last-child {
+    margin-bottom: 0;
+}
+
+.formActions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    gap: 12px;
+}
+
+.btnSecondary {
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 6px;
+    font-weight: 500;
+}
+
+.btnPrimary {
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    background: #1890ff;
+    border-color: #1890ff;
+}
+
+.btnPrimary:hover {
+    background: #40a9ff;
+    border-color: #40a9ff;
+}

@@ -1,0 +1,53 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["ESNext", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noFallthroughCasesInSwitch": true,
+    // "noUncheckedSideEffectImports": true,
+
+    /* Paths */
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
+      "@utils/*": ["src/utils/*"],
+      "@assets/*": ["/assets/*"],
+      "@styles/*": ["src/styles/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@services/*": ["src/services/*"],
+      "@features/*": ["src/features/*"],
+      "@interfaces/*": ["src/interfaces/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@constants/*": ["src/constants/*"],
+      "@config/*": ["src/config/*"],
+      "@store/*": ["src/store/*"],
+      "@routes/*": ["src/routes/*"],
+      "@generated-types/*": ["src/generated-types/*"],
+      "@contexts/*": ["src/contexts/*"]
+    },
+    "plugins": [
+      {
+        "name": "@0no-co/graphqlsp",
+        "schema": "./schema.graphql"
+      }
+    ]
+  },
+  "include": ["src", "public/assets", "src/validations/.ts"]
+}

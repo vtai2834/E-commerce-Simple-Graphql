@@ -1,0 +1,9 @@
+@use '/src/styles/variables' as *;
+
+.main-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 16px 24px;
+}

@@ -1,0 +1,4 @@
+extend type Mutation {
+  createOrder(input: CreateOrderInput!): OrderResponse!
+}
+

@@ -1,0 +1,5 @@
+extend type Query {
+  getProducts(filter: ProductFilterInput, limit: Int): ProductListResponse!
+  getProduct(id: ID!): ProductResponse!
+}
+

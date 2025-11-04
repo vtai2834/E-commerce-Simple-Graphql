@@ -1,0 +1,7 @@
+type AuthResponse {
+  code: Int
+  isSuccess: Boolean
+  message: String
+  accessToken: String
+  refreshToken: String
+}

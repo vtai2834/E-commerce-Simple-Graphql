@@ -1,0 +1,5 @@
+type MutationResponse @shareable {
+  code: Int
+  isSuccess: Boolean
+  message: String
+}

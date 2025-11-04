@@ -1,0 +1,6 @@
+# Reference Product type từ product-service
+# Chỉ cần khai báo stub với @key để federation biết cách resolve
+type Product @key(fields: "id", resolvable: false) {
+  id: ID!
+}
+

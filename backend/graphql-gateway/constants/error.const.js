@@ -1,0 +1,8 @@
+const ERROR_CODES = {
+  SUBGRAPH_ERROR: 3000,
+  UNAUTHORIZED: 3001,
+
+  TOKEN_EXPIRED: 1006,
+}
+
+module.exports = { ERROR_CODES };

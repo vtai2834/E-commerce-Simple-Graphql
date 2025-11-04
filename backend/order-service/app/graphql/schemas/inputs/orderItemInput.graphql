@@ -1,0 +1,6 @@
+input OrderItemInput {
+  productId: ID!
+  quantity: Int!
+  price: Float!
+}
+
