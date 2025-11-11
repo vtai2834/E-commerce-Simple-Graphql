@@ -9,7 +9,7 @@ import { SSOCOOKIES, EXPIPRE_TIME_TOKEN } from "../../constants";
 export default function LoginPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [role, setRole] = useState<"PATIENT" | "PHYSICIAN">("PATIENT");
+  const [role, setRole] = useState<"ADMIN" | "CUSTOMER">("CUSTOMER");
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -30,7 +30,8 @@ export default function LoginPage() {
     
     try {
       const result = await loginMutation(email, password, role);
-      const loginData = result.data?.loginPatient || result.data?.loginPhysician;
+      // FE FE mapping
+      const loginData = result.data?.loginAdmin || result.data?.loginCustomer;
       
       if (loginData?.isSuccess) {
         // Save tokens to cookies
@@ -91,11 +92,11 @@ export default function LoginPage() {
           <label>Vai trò:</label>
           <select
             value={role}
-            onChange={(e) => setRole(e.target.value as "PATIENT" | "PHYSICIAN")}
+            onChange={(e) => setRole(e.target.value as "ADMIN" | "CUSTOMER")}
             style={{ width: '100%', padding: '8px', marginTop: '5px' }}
           >
-            <option value="PATIENT">Bệnh nhân</option>
-            <option value="PHYSICIAN">Bác sĩ</option>
+            <option value="CUSTOMER">Khách hàng (Customer)</option>
+            <option value="ADMIN">Quản trị viên (Admin)</option>
           </select>
         </div>
         

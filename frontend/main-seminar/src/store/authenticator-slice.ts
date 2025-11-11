@@ -7,9 +7,7 @@ export interface AuthenticatorState {
     email: string;
     firstName: string;
     lastName: string;
-    dob: string;
-    role: "PATIENT" | "PHYSICIAN" | "CUSTOMER" | "ADMIN"
-    facilities?: string[]
+    role: "CUSTOMER" | "ADMIN"
   }
   authenticated: boolean;
 }
@@ -20,10 +18,8 @@ const initialState : AuthenticatorState = {
     email: '',
     firstName: '',
     lastName: '',
-    dob: '',
     role: "CUSTOMER",
   },
-
   authenticated: false,
 };
 
@@ -42,7 +38,6 @@ const authenticatorSlice = createSlice({
         email: '',
         firstName: '',
         lastName: '',
-        dob: '',
         role: "CUSTOMER",
       };
       state.authenticated = false;

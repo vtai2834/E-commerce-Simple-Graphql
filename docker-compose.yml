@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  mongodb:
+    image: mongo:6.0
+    container_name: seminar-mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+    restart: unless-stopped
+
+  redis:
+    image: redis:7.2-alpine
+    container_name: seminar-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  mongo-data:

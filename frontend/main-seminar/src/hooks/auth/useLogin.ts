@@ -1,8 +1,8 @@
 import { useMutation, gql } from "@apollo/client";
 
-const LOGIN_PATIENT = gql`
-  mutation LoginPatient($input: LoginInput!) {
-    loginPatient(input: $input) {
+const LOGIN_ADMIN = gql`
+  mutation LoginAdmin($input: LoginInput!) {
+    loginAdmin(input: $input) {
       code
       isSuccess
       message
@@ -19,9 +19,9 @@ const LOGIN_PATIENT = gql`
   }
 `;
 
-const LOGIN_PHYSICIAN = gql`
-  mutation LoginPhysician($input: LoginInput!) {
-    loginPhysician(input: $input) {
+const LOGIN_CUSTOMER = gql`
+  mutation LoginCustomer($input: LoginInput!) {
+    loginCustomer(input: $input) {
       code
       isSuccess
       message
@@ -39,27 +39,28 @@ const LOGIN_PHYSICIAN = gql`
 `;
 
 export function useLogin() {
-  // Pattern chuẩn Apollo Client: trả về [mutationFunction, result]
-  const [loginPatient, patientResult] = useMutation(LOGIN_PATIENT);
-  const [loginPhysician, physicianResult] = useMutation(LOGIN_PHYSICIAN);
+  const [loginAdmin, adminResult] = useMutation(LOGIN_ADMIN);
+  const [loginCustomer, customerResult] = useMutation(LOGIN_CUSTOMER);
 
-  // Wrapper function để handle cả 2 loại login
-  const executeLogin = async (email: string, password: string, role: "PATIENT" | "PHYSICIAN" = "PATIENT") => {
+  const executeLogin = async (
+    email: string,
+    password: string,
+    role: "ADMIN" | "CUSTOMER" = "CUSTOMER"
+  ) => {
     const input = { email, password, role };
-    
-    if (role === "PATIENT") {
-      return await loginPatient({ variables: { input } });
+    if (role === "ADMIN") {
+      return await loginAdmin({ variables: { input } });
     } else {
-      return await loginPhysician({ variables: { input } });
+      return await loginCustomer({ variables: { input } });
     }
   };
 
   return [
     executeLogin,
     {
-      data: patientResult.data || physicianResult.data,
-      loading: patientResult.loading || physicianResult.loading,
-      error: patientResult.error || physicianResult.error
+      data: adminResult.data || customerResult.data,
+      loading: adminResult.loading || customerResult.loading,
+      error: adminResult.error || customerResult.error
     }
   ] as const;
 }

@@ -1,38 +1,31 @@
 const { signAccessToken, signRefreshToken, storeToken, deleteToken, checkAcessToken, getRefreshTokenByUserId, verifyToken } = require('../utils/jwt');
-const { Patient } = require('../datasources/mongodb');
-const { Physician } = require('../datasources/mongodb');
-const bcrypt = require('bcrypt');
+const { Customer } = require('../datasources/mongodb');
+const { Admin } = require('../datasources/mongodb');
+const bcrypt = require('bcryptjs');
 const { RESPONSE_CODE } = require('../constant');
 
-async function loginPatient({ email, password }) {
-    console.log("input: ", email, password);
-    const user = await Patient.findOne({ email });
-    if (!user) return { code: RESPONSE_CODE.NOT_FOUND, isSuccess: false, message: 'Patient not found' };
-    // TODO: Nếu có hash password thì dùng bcrypt.compare
+async function loginCustomer({ email, password }) {
+    const user = await Customer.findOne({ email });
+    if (!user) return { code: RESPONSE_CODE.NOT_FOUND, isSuccess: false, message: 'Customer not found' };
     if (!await bcrypt.compare(password, user.password)) return { code: RESPONSE_CODE.INVALID_INPUT, isSuccess: false, message: 'Invalid password' };
 
-    const payload = { id: user._id, role: 'PATIENT', email: user.email };
-
+    const payload = { id: user._id, role: 'CUSTOMER', email: user.email };
     const accessToken = signAccessToken(payload);
     const refreshToken = signRefreshToken(payload);
 
-    await storeToken(user._id.toString(), 'PATIENT', accessToken, refreshToken);
-    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user };
+    await storeToken(user._id.toString(), 'CUSTOMER', accessToken, refreshToken);
+    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: { ...user.toObject(), role: 'CUSTOMER' } };
 }
 
-async function loginPhysician({ email, password }) {
-    const user = await Physician.findOne({ email });
-    if (!user) return { code: RESPONSE_CODE.NOT_FOUND, isSuccess: false, message: 'Physician not found' };
-    // TODO: Nếu có hash password thì dùng bcrypt.compare
+async function loginAdmin({ email, password }) {
+    const user = await Admin.findOne({ email });
+    if (!user) return { code: RESPONSE_CODE.NOT_FOUND, isSuccess: false, message: 'Admin not found' };
     if (!await bcrypt.compare(password, user.password)) return { code: RESPONSE_CODE.INVALID_INPUT, isSuccess: false, message: 'Invalid password' };
-
-    const payload = { id: user._id, role: 'PHYSICIAN', email: user.email };
-
+    const payload = { id: user._id, role: 'ADMIN', email: user.email };
     const accessToken = signAccessToken(payload);
     const refreshToken = signRefreshToken(payload);
-
-    await storeToken(user._id.toString(), 'PHYSICIAN', accessToken, refreshToken);
-    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user };
+    await storeToken(user._id.toString(), 'ADMIN', accessToken, refreshToken);
+    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: { ...user.toObject(), role: 'ADMIN' } };
 }
 
 async function logout({ userId }) {
@@ -95,10 +88,10 @@ async function getMeInfo({ accessToken }) {
     const refreshToken = await getRefreshTokenByUserId(payload.id);
 
     let user;
-    if (payload.role === 'PATIENT') {
-        user = await Patient.findById(payload.id);
-    } else if (payload.role === 'PHYSICIAN') {
-        user = await Physician.findById(payload.id);
+    if (payload.role === 'CUSTOMER') {
+        user = await Customer.findById(payload.id);
+    } else if (payload.role === 'ADMIN') {
+        user = await Admin.findById(payload.id);
     }
 
     if (!user) {
@@ -120,9 +113,9 @@ async function getMeInfo({ accessToken }) {
 }
 
 module.exports = {
-    loginPatient,
-    loginPhysician,
-    logout,
-    refreshToken: refreshTokenFn,
-    getMeInfo,
+  loginCustomer,
+  loginAdmin,
+  logout,
+  refreshToken: refreshTokenFn,
+  getMeInfo,
 };

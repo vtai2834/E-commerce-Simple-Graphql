@@ -3,7 +3,5 @@ type User @key(fields: "id") {
   email: String
   firstName: String
   lastName: String
-  dob: String
-  role: String
-  facilities: [String]
+  role: String # 'ADMIN' hoặc 'CUSTOMER'
 }

@@ -33,7 +33,7 @@ export const getApolloClient = async (): Promise<ApolloClient<any>> => {
   }
 
   const httpLink = new HttpLink({
-    uri: import.meta.env.VITE_API_URL || 'http://localhost:8080',
+    uri: import.meta.env.VITE_API_URL || 'http://localhost:8000/graphql',
   });
 
   const authLink = setContext(async (_, { headers }) => {

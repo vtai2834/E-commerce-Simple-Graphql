@@ -112,11 +112,19 @@ export default function ProductListPage() {
                 color: 'white',
                 border: 'none',
                 borderRadius: '4px',
-                cursor: 'pointer'
+                cursor: 'pointer',
+                marginBottom: '10px'
               }}
             >
               Xem chi tiết
             </button>
+            {/* CRUD product chỉ cho Admin */}
+            {user?.role === 'ADMIN' && (
+              <div style={{ display: 'flex', gap: '8px' }}>
+                <button style={{background: '#27ae60', color: 'white', border: 0, borderRadius: 4, padding: '6px 12px'}}>Sửa</button>
+                <button style={{background: '#e74c3c', color: 'white', border: 0, borderRadius: 4, padding: '6px 12px'}}>Xóa</button>
+              </div>
+            )}
           </div>
         ))}
       </div>

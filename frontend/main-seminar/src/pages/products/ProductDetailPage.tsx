@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetProduct } from "../../hooks";
 import { useCart } from "../../contexts/CartContext";
+import { useAuth } from "../../hooks";
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -9,6 +10,7 @@ export default function ProductDetailPage() {
   const { product, loading, error } = useGetProduct(id!);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const { user } = useAuth();
 
   if (loading) return <div>Đang tải thông tin sản phẩm...</div>;
   if (error || !product) return <div>Lỗi: Không thể tải thông tin sản phẩm</div>;
@@ -118,6 +120,13 @@ export default function ProductDetailPage() {
             </p>
           </div>
 
+          {user?.role === 'ADMIN' && (
+            <div style={{ marginBottom: '12px', display: 'flex', gap: '8px' }}>
+              <button style={{background:'#27ae60',color:'white',border:0,borderRadius:4,padding:'8px 18px'}}>Sửa</button>
+              <button style={{background:'#e74c3c',color:'white',border:0,borderRadius:4,padding:'8px 18px'}}>Xóa</button>
+            </div>
+          )}
+
           {canAddToCart && (
             <div style={{ marginBottom: '20px' }}>
               <label style={{ display: 'block', marginBottom: '5px' }}>
@@ -167,39 +176,41 @@ export default function ProductDetailPage() {
             </div>
           )}
 
-          <div style={{ display: 'flex', gap: '10px' }}>
-            <button
-              onClick={handleAddToCart}
-              disabled={!canAddToCart}
-              style={{
-                padding: '12px 24px',
-                backgroundColor: canAddToCart ? '#28a745' : '#6c757d',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: canAddToCart ? 'pointer' : 'not-allowed',
-                fontSize: '16px',
-                flex: 1
-              }}
-            >
-              {canAddToCart ? 'Thêm vào giỏ hàng' : 'Không thể mua'}
-            </button>
-            
-            <button
-              onClick={() => navigate('/cart')}
-              style={{
-                padding: '12px 24px',
-                backgroundColor: '#17a2b8',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                fontSize: '16px'
-              }}
-            >
-              Xem giỏ hàng
-            </button>
-          </div>
+          {user?.role === 'CUSTOMER' && (
+            <div style={{ display: 'flex', gap: '10px' }}>
+              <button
+                onClick={handleAddToCart}
+                disabled={!canAddToCart}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: canAddToCart ? '#28a745' : '#6c757d',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: canAddToCart ? 'pointer' : 'not-allowed',
+                  fontSize: '16px',
+                  flex: 1
+                }}
+              >
+                {canAddToCart ? 'Thêm vào giỏ hàng' : 'Không thể mua'}
+              </button>
+              
+              <button
+                onClick={() => navigate('/cart')}
+                style={{
+                  padding: '12px 24px',
+                  backgroundColor: '#17a2b8',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  cursor: 'pointer',
+                  fontSize: '16px'
+                }}
+              >
+                Xem giỏ hàng
+              </button>
+            </div>
+          )}
 
           <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '4px' }}>
             <h4>Thông tin sản phẩm</h4>

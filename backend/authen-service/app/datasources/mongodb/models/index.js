@@ -1,7 +1,7 @@
-const Patient = require('./Patient')
-const Physician = require('./Physician')
+const Customer = require('./Customer');
+const Admin = require('./Admin');
 
 module.exports = {
-  Patient,
-  Physician
+  Customer,
+  Admin,
 };

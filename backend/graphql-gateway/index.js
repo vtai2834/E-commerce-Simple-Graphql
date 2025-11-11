@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 
-const PUBLIC_OPERATIONS = ['LoginPatient', 'LoginPhysician', 'RefreshToken', 'IntrospectionQuery', 'ExampleQuery'];
+const PUBLIC_OPERATIONS = ['LoginCustomer', 'LoginAdmin', 'RefreshToken', 'IntrospectionQuery', 'ExampleQuery'];
 const { ERROR_CODES } = require('./constants/error.const');
 
 const gateway = new ApolloGateway({
