@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useCart } from "../../contexts/CartContext";
 import { useCreateOrder, useAuth } from "../../hooks";
 import { useNavigate } from "react-router-dom";
+import './CartPage.css';
 
 export default function CartPage() {
   const { 
@@ -73,98 +74,57 @@ export default function CartPage() {
 
   if (cart.length === 0) {
     return (
-      <div style={{ padding: '20px', textAlign: 'center' }}>
-        <h2>Giỏ hàng trống</h2>
-        <p>Bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
-        <button
-          onClick={() => navigate('/products')}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#007bff',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer',
-            marginTop: '20px'
-          }}
-        >
-          Tiếp tục mua sắm
-        </button>
+      <div className="cart-container">
+        <div className="cart-header">
+          <h2>Giỏ hàng trống</h2>
+          <button onClick={() => navigate('/products')} className="cart-btn">Tiếp tục mua sắm</button>
+        </div>
+        <div className="cart-main">
+          <div className="cart-list" style={{alignItems:'center'}}>
+            <p>Bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
+          </div>
+        </div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
+    <div className="cart-container">
+      <div className="cart-header">
         <h2>Giỏ hàng ({getTotalItems()} sản phẩm)</h2>
-        <button
-          onClick={() => navigate('/products')}
-          style={{
-            padding: '10px 20px',
-            backgroundColor: '#6c757d',
-            color: 'white',
-            border: 'none',
-            borderRadius: '4px',
-            cursor: 'pointer'
-          }}
-        >
-          Tiếp tục mua sắm
-        </button>
+        <button onClick={() => navigate('/products')} className="cart-btn">Tiếp tục mua sắm</button>
       </div>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr', gap: '30px' }}>
-        {/* Cart Items */}
-        <div>
+      <div className="cart-main">
+        <div className="cart-list">
           {cart.map((item) => (
-            <div key={item.id} style={{ 
-              display: 'flex', 
-              padding: '15px', 
-              border: '1px solid #ddd', 
-              borderRadius: '8px', 
-              marginBottom: '15px',
-              backgroundColor: 'white'
-            }}>
+            <div key={item.id} className="cart-item">
               <img
                 src={item.image || '/placeholder.jpg'}
                 alt={item.name}
-                style={{ 
-                  width: '100px', 
-                  height: '100px', 
-                  objectFit: 'cover', 
-                  borderRadius: '4px',
-                  marginRight: '15px'
-                }}
+                className="cart-img"
               />
               
-              <div style={{ flex: 1 }}>
-                <h4 style={{ margin: '0 0 10px 0' }}>{item.name}</h4>
-                <p style={{ color: '#e74c3c', fontSize: '18px', fontWeight: 'bold', margin: '0 0 10px 0' }}>
+              <div className="cart-item-info">
+                <h4 className="cart-item-title">{item.name}</h4>
+                <p className="cart-item-price">
                   {item.price.toLocaleString()}₫
                 </p>
-                <p style={{ color: '#666', fontSize: '14px', margin: '0 0 10px 0' }}>
+                <p className="cart-item-desc">
                   Còn lại: {item.stock} sản phẩm
                 </p>
                 
-                <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <div className="cart-qty-controls">
                   <span>Số lượng:</span>
                   <button
                     onClick={() => {
                       if (item.quantity > 1) updateQuantity(item.id, item.quantity - 1);
                     }}
-                    style={{ 
-                      padding: '5px 10px',
-                      border: '1px solid #ddd',
-                      backgroundColor: '#f8f9fa',
-                      cursor: 'pointer'
-                    }}
+                    className="cart-qty-bt"
                   >-</button>
-                  <span style={{ 
-                    padding: '5px 15px',
-                    border: '1px solid #ddd',
-                    minWidth: '50px',
-                    textAlign: 'center'
-                  }}>{item.quantity}</span>
+                  <span className="cart-qty-amount">
+                    {item.quantity}
+                  </span>
                   <button
                     onClick={() => {
                       if (item.quantity < item.stock) {
@@ -175,36 +135,23 @@ export default function CartPage() {
                       }
                     }}
                     disabled={item.quantity >= item.stock}
-                    style={{ 
-                      padding: '5px 10px',
-                      border: '1px solid #ddd',
-                      backgroundColor: item.quantity >= item.stock ? '#e9ecef' : '#f8f9fa',
-                      cursor: item.quantity >= item.stock ? 'not-allowed' : 'pointer'
-                    }}
+                    className="cart-qty-bt"
                   >+</button>
                   {/* cảnh báo nếu có */}
                   {stockWarning && (
-                    <span style={{ color: 'red', fontWeight:500 }}>{stockWarning}</span>
+                    <span className="cart-warning">{stockWarning}</span>
                   )}
                   <button
                     onClick={() => removeFromCart(item.id)}
-                    style={{
-                      padding: '5px 15px',
-                      backgroundColor: '#dc3545',
-                      color: 'white',
-                      border: 'none',
-                      borderRadius: '4px',
-                      cursor: 'pointer',
-                      marginLeft: '20px'
-                    }}
+                    className="cart-remove-btn"
                   >
                     Xóa
                   </button>
                 </div>
               </div>
               
-              <div style={{ textAlign: 'right' }}>
-                <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#e74c3c' }}>
+              <div className="cart-item-price">
+                <div className="cart-item-price">
                   {(item.price * item.quantity).toLocaleString()}₫
                 </div>
               </div>
@@ -213,84 +160,56 @@ export default function CartPage() {
           
           <button
             onClick={clearCart}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#dc3545',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
+            className="cart-clear-btn"
           >
             Xóa toàn bộ giỏ hàng
           </button>
         </div>
 
         {/* Order Summary */}
-        <div style={{ position: 'sticky', top: '20px' }}>
-          <div style={{ 
-            border: '1px solid #ddd', 
-            borderRadius: '8px', 
-            padding: '20px',
-            backgroundColor: 'white'
-          }}>
-            <h3>Tóm tắt đơn hàng</h3>
-            
-            <div style={{ marginBottom: '15px' }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '5px' }}>
-                <span>Tổng sản phẩm:</span>
-                <span>{getTotalItems()}</span>
-              </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '15px', fontSize: '18px', fontWeight: 'bold' }}>
-                <span>Tổng tiền:</span>
-                <span style={{ color: '#e74c3c' }}>{getTotalAmount().toLocaleString()}₫</span>
-              </div>
-            </div>
-
-            {/* Shipping Address */}
-            <div style={{ marginBottom: '20px' }}>
-              <h4>Địa chỉ giao hàng (tùy chọn)</h4>
-              <input
-                type="text"
-                placeholder="Địa chỉ"
-                value={shippingAddress.street}
-                onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
-                style={{ width: '100%', padding: '8px', marginBottom: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
-              />
-              <input
-                type="text"
-                placeholder="Thành phố"
-                value={shippingAddress.city}
-                onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
-                style={{ width: '100%', padding: '8px', marginBottom: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
-              />
-              <input
-                type="text"
-                placeholder="Mã bưu điện"
-                value={shippingAddress.zipCode}
-                onChange={(e) => setShippingAddress({...shippingAddress, zipCode: e.target.value})}
-                style={{ width: '100%', padding: '8px', marginBottom: '8px', border: '1px solid #ddd', borderRadius: '4px' }}
-              />
-            </div>
-
-            <button
-              onClick={handleCreateOrder}
-              disabled={loading}
-              style={{
-                width: '100%',
-                padding: '15px',
-                backgroundColor: loading ? '#6c757d' : '#28a745',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: loading ? 'not-allowed' : 'pointer',
-                fontSize: '16px',
-                fontWeight: 'bold'
-              }}
-            >
-              {loading ? 'Đang xử lý...' : 'Đặt hàng'}
-            </button>
+        <div className="cart-summary">
+          <div className="cart-summary-title">Tóm tắt đơn hàng</div>
+          <div className="cart-summary-row">
+            <span>Tổng sản phẩm:</span>
+            <span>{getTotalItems()}</span>
           </div>
+          <div className="cart-summary-total">
+            <span>Tổng tiền:</span>
+            <span>{getTotalAmount().toLocaleString()}₫</span>
+          </div>
+
+          <div className="cart-shipping-box">
+            <div className="cart-shipping-title">Địa chỉ giao hàng (tùy chọn)</div>
+            <input
+              type="text"
+              placeholder="Địa chỉ"
+              value={shippingAddress.street}
+              onChange={(e) => setShippingAddress({...shippingAddress, street: e.target.value})}
+              className="cart-input"
+            />
+            <input
+              type="text"
+              placeholder="Thành phố"
+              value={shippingAddress.city}
+              onChange={(e) => setShippingAddress({...shippingAddress, city: e.target.value})}
+              className="cart-input"
+            />
+            <input
+              type="text"
+              placeholder="Mã bưu điện"
+              value={shippingAddress.zipCode}
+              onChange={(e) => setShippingAddress({...shippingAddress, zipCode: e.target.value})}
+              className="cart-input"
+            />
+          </div>
+
+          <button
+            onClick={handleCreateOrder}
+            disabled={loading}
+            className="cart-btn-checkout"
+          >
+            {loading ? 'Đang xử lý...' : 'Đặt hàng'}
+          </button>
         </div>
       </div>
     </div>

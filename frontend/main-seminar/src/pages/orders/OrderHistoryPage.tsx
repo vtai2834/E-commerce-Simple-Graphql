@@ -1,6 +1,7 @@
 import React from "react";
 import { useGetOrders, useAuth } from "../../hooks";
 import { useNavigate } from "react-router-dom";
+import './OrderHistoryPage.css';
 
 export default function OrderHistoryPage() {
   const { user } = useAuth();
@@ -33,73 +34,29 @@ export default function OrderHistoryPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h2>Lịch sử đơn hàng</h2>
-        <div>
-          <button
-            onClick={() => navigate('/products')}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              marginRight: '10px'
-            }}
-          >
-            Tiếp tục mua sắm
-          </button>
-          <button
-            onClick={() => refetch()}
-            style={{
-              padding: '10px 20px',
-              backgroundColor: '#6c757d',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer'
-            }}
-          >
-            Làm mới
-          </button>
+    <div className="order-page">
+      <div className="order-header">
+        <h2 className="order-header-title">Lịch sử đơn hàng</h2>
+        <div className="order-actions">
+          <button onClick={() => navigate('/products')} className="order-btn">Tiếp tục mua sắm</button>
+          <button onClick={() => refetch()} className="order-btn">Làm mới</button>
         </div>
       </div>
 
       {orders.length === 0 ? (
-        <div style={{ textAlign: 'center', marginTop: '50px' }}>
+        <div className="order-empty">
           <h3>Bạn chưa có đơn hàng nào</h3>
           <p>Hãy bắt đầu mua sắm để tạo đơn hàng đầu tiên!</p>
-          <button
-            onClick={() => navigate('/products')}
-            style={{
-              padding: '12px 24px',
-              backgroundColor: '#007bff',
-              color: 'white',
-              border: 'none',
-              borderRadius: '4px',
-              cursor: 'pointer',
-              marginTop: '20px'
-            }}
-          >
-            Mua sắm ngay
-          </button>
+          <button onClick={() => navigate('/products')} className="order-btn">Mua sắm ngay</button>
         </div>
       ) : (
-        <div>
+        <div className="order-list">
           {orders.map((order: any) => (
-            <div key={order.id} style={{ 
-              border: '1px solid #ddd', 
-              borderRadius: '8px', 
-              padding: '20px', 
-              marginBottom: '20px',
-              backgroundColor: 'white'
-            }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '15px' }}>
+            <div key={order.id} className="order-card">
+              <div className="order-meta-row">
                 <div>
-                  <h4 style={{ margin: '0 0 5px 0' }}>Đơn hàng #{order.id}</h4>
-                  <p style={{ color: '#666', margin: '0' }}>
+                  <h4 className="order-id-title">Đơn hàng #{order.id}</h4>
+                  <p className="order-date">
                     Ngày đặt: {new Date(order.createdAt).toLocaleDateString('vi-VN', {
                       year: 'numeric',
                       month: 'long',
@@ -109,85 +66,41 @@ export default function OrderHistoryPage() {
                     })}
                   </p>
                 </div>
-                <div style={{ textAlign: 'right' }}>
-                  <div style={{
-                    padding: '4px 12px',
-                    borderRadius: '4px',
-                    color: 'white',
-                    backgroundColor: getStatusColor(order.status),
-                    fontSize: '14px',
-                    marginBottom: '5px'
-                  }}>
-                    {getStatusText(order.status)}
-                  </div>
-                  <div style={{ fontSize: '18px', fontWeight: 'bold', color: '#e74c3c' }}>
-                    {order.totalAmount.toLocaleString()}₫
-                  </div>
+                <div>
+                  <div className={`order-status ${order.status}`}>{getStatusText(order.status)}</div>
+                  <div className="order-total">{order.totalAmount.toLocaleString()}₫</div>
                 </div>
               </div>
 
-              {/* Order Items */}
-              <div style={{ marginBottom: '15px' }}>
-                <h5>Sản phẩm đã đặt:</h5>
-                <div style={{ display: 'grid', gap: '10px' }}>
-                  {order.items.map((item: any, index: number) => (
-                    <div key={index} style={{ 
-                      display: 'flex', 
-                      justifyContent: 'space-between', 
-                      alignItems: 'center',
-                      padding: '10px',
-                      backgroundColor: '#f8f9fa',
-                      borderRadius: '4px'
-                    }}>
-                      <div>
-                        <span>Sản phẩm ID: {item.productId}</span>
-                        <span style={{ marginLeft: '20px', color: '#666' }}>x{item.quantity}</span>
-                      </div>
-                      <div style={{ fontWeight: 'bold' }}>
-                        {(item.price * item.quantity).toLocaleString()}₫
-                      </div>
+              <div className="order-item-list">
+                {order.items.map((item: any, index: number) => (
+                  <div key={index} className="order-item-row">
+                    <div className="order-item-name">
+                      Sản phẩm ID: {item.productId}
+                      <span className="order-item-meta"> x{item.quantity}</span>
                     </div>
-                  ))}
-                </div>
+                    <div className="order-item-meta">
+                      {(item.price * item.quantity).toLocaleString()}₫
+                    </div>
+                  </div>
+                ))}
               </div>
 
-              {/* Shipping Address */}
               {order.shippingAddress && (
-                <div style={{ marginBottom: '15px' }}>
-                  <h5>Địa chỉ giao hàng:</h5>
-                  <div style={{ 
-                    padding: '10px',
-                    backgroundColor: '#f8f9fa',
-                    borderRadius: '4px',
-                    color: '#666'
-                  }}>
-                    {[
-                      order.shippingAddress.street,
-                      order.shippingAddress.city,
-                      order.shippingAddress.state,
-                      order.shippingAddress.country,
-                      order.shippingAddress.zipCode
-                    ].filter(Boolean).join(', ')}
-                  </div>
+                <div className="order-shipping-box">
+                  Địa chỉ giao hàng: {[
+                    order.shippingAddress.street,
+                    order.shippingAddress.city,
+                    order.shippingAddress.state,
+                    order.shippingAddress.country,
+                    order.shippingAddress.zipCode
+                  ].filter(Boolean).join(', ')}
                 </div>
               )}
 
-              {/* Order Summary */}
-              <div style={{ 
-                display: 'flex', 
-                justifyContent: 'space-between', 
-                alignItems: 'center',
-                paddingTop: '15px',
-                borderTop: '1px solid #eee'
-              }}>
-                <div>
-                  <span>Tổng số sản phẩm: {order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)}</span>
-                </div>
-                <div>
-                  <span style={{ fontSize: '18px', fontWeight: 'bold' }}>
-                    Tổng tiền: <span style={{ color: '#e74c3c' }}>{order.totalAmount.toLocaleString()}₫</span>
-                  </span>
-                </div>
+              <div className="order-summary-row">
+                <span>Tổng sản phẩm: {order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)}</span>
+                <span>Tổng tiền: <span className="order-total">{order.totalAmount.toLocaleString()}₫</span></span>
               </div>
             </div>
           ))}

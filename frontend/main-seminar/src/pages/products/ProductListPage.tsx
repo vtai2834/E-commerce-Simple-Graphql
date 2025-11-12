@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useCreateProduct } from "../../hooks/products/useCreateProduct";
 import { useUpdateProduct } from "../../hooks/products/useUpdateProduct";
 import { useRemoveProduct } from "../../hooks/products/useRemoveProduct";
+import './ProductListPage.css';
 
 export default function ProductListPage() {
   const [searchName, setSearchName] = useState("");
@@ -73,146 +74,123 @@ export default function ProductListPage() {
   };
 
   return (
-    <div style={{ padding: '20px' }}>
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px' }}>
-        <h2>Danh sách sản phẩm</h2>
-        <div>
-          {/* NÚT TẠO SẢN PHẨM ADMIN */}
+    <div className="product-list-page">
+      <div className="product-list-header">
+        <h2 className="product-list-title">Danh sách sản phẩm</h2>
+        <div className="product-list-controls">
+          <span className="product-list-greeting">Xin chào, {user.firstName} {user.lastName}</span>
           {user.role === 'ADMIN' && (
-            <button onClick={() => setShowCreate(true)} style={{ marginRight: 16, background:'#27ae60',color:'white',padding:'8px 16px',borderRadius:4,border:0 }}>+ Tạo sản phẩm</button>
+            <button onClick={() => setShowCreate(true)} className="product-list-btn-primary">+ Tạo sản phẩm</button>
           )}
-          <span style={{ marginRight: '10px' }}>Xin chào, {user.firstName} {user.lastName}</span>
-          <button onClick={() => navigate('/cart')} style={{ marginRight: '10px' }}>Giỏ hàng</button>
-          <button onClick={() => navigate('/orders')} style={{ marginRight: '10px' }}>Đơn hàng</button>
-          <button onClick={logout} disabled={logoutLoading}>
+          <button onClick={() => navigate('/cart')} className="product-list-button">Giỏ hàng</button>
+          <button onClick={() => navigate('/orders')} className="product-list-button">Đơn hàng</button>
+          <button onClick={logout} disabled={logoutLoading} className="product-list-btn-secondary">
             {logoutLoading ? "Đang đăng xuất..." : "Đăng xuất"}
           </button>
         </div>
       </div>
       {/* FORM CREATE PRODUCT */}
       {showCreate && (
-        <form onSubmit={handleCreateProduct} style={{ background:'#fff',padding:16,border:'1px solid #ddd', borderRadius:6, marginBottom:16 }}>
+        <form onSubmit={handleCreateProduct} className="product-list-form">
           <h4>Tạo mới sản phẩm</h4>
-          <input name="name" placeholder="Tên" required style={{marginRight:8}} />
-          <input name="price" type="number" min={0} placeholder="Giá" required style={{marginRight:8,width:80}} />
-          <input name="stock" type="number" min={0} placeholder="Kho" required style={{marginRight:8,width:60}} />
-          <input name="category" placeholder="Danh mục" style={{marginRight:8,width:100}} />
-          <input name="image" placeholder="Link ảnh (tuỳ chọn)" style={{marginRight:8,width:160}} />
-          <textarea name="description" placeholder="Mô tả..." style={{marginRight:8,verticalAlign:'middle'}} rows={1}></textarea>
-          <button type="submit" style={{background:'#007bff',color:'white',padding:'6px 14px',borderRadius:4,border:0,marginLeft:8}}>Tạo mới</button>
-          <button type="button" onClick={()=>setShowCreate(false)} style={{marginLeft:8}}>Huỷ</button>
+          <div className="product-list-form-fields">
+            <input name="name" placeholder="Tên" required />
+            <input name="price" type="number" min={0} placeholder="Giá" required />
+            <input name="stock" type="number" min={0} placeholder="Kho" required />
+            <input name="category" placeholder="Danh mục" />
+            <input name="image" placeholder="Link ảnh (tuỳ chọn)" />
+            <textarea name="description" placeholder="Mô tả..." rows={1}></textarea>
+          </div>
+          <div className="product-list-form-buttons">
+            <button type="submit" className="product-list-btn-primary">Tạo mới</button>
+            <button type="button" onClick={()=>setShowCreate(false)} className="product-list-btn-secondary">Huỷ</button>
+          </div>
         </form>
       )}
       {/* FORM EDIT PRODUCT */}
       {editProduct && (
-        <form onSubmit={handleEditProduct} style={{ background:'#fff',padding:16,border:'1px solid #bbb', borderRadius:6, marginBottom:16 }}>
+        <form onSubmit={handleEditProduct} className="product-list-form">
           <h4>Cập nhật sản phẩm: {editProduct.name}</h4>
-          <input name="name" placeholder="Tên" defaultValue={editProduct.name} required style={{marginRight:8}} />
-          <input name="price" type="number" min={0} placeholder="Giá" defaultValue={editProduct.price} required style={{marginRight:8,width:80}} />
-          <input name="stock" type="number" min={0} placeholder="Kho" defaultValue={editProduct.stock} required style={{marginRight:8,width:60}} />
-          <input name="category" placeholder="Danh mục" defaultValue={editProduct.category} style={{marginRight:8,width:100}} />
-          <input name="image" placeholder="Link ảnh (tuỳ chọn)" defaultValue={editProduct.image} style={{marginRight:8,width:160}} />
-          <textarea name="description" placeholder="Mô tả..." defaultValue={editProduct.description} style={{marginRight:8,verticalAlign:'middle'}} rows={1}></textarea>
-          <button type="submit" style={{background:'#ffa500',color:'white',padding:'6px 14px',borderRadius:4,border:0,marginLeft:8}}>Cập nhật</button>
-          <button type="button" onClick={()=>setEditProduct(null)} style={{marginLeft:8}}>Huỷ</button>
+          <div className="product-list-form-fields">
+            <input name="name" placeholder="Tên" defaultValue={editProduct.name} required />
+            <input name="price" type="number" min={0} placeholder="Giá" defaultValue={editProduct.price} required />
+            <input name="stock" type="number" min={0} placeholder="Kho" defaultValue={editProduct.stock} required />
+            <input name="category" placeholder="Danh mục" defaultValue={editProduct.category} />
+            <input name="image" placeholder="Link ảnh (tuỳ chọn)" defaultValue={editProduct.image} />
+            <textarea name="description" placeholder="Mô tả..." defaultValue={editProduct.description} rows={1}></textarea>
+          </div>
+          <div className="product-list-form-buttons">
+            <button type="submit" className="product-list-btn-primary">Cập nhật</button>
+            <button type="button" onClick={()=>setEditProduct(null)} className="product-list-btn-secondary">Huỷ</button>
+          </div>
         </form>
       )}
       {/* Filters */}
-      <div style={{ marginBottom: '20px', display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+      <div className="product-list-filters">
         <input
           type="text"
           placeholder="Tìm theo tên sản phẩm..."
           value={searchName}
           onChange={(e) => setSearchName(e.target.value)}
-          style={{ padding: '8px', minWidth: '200px' }}
         />
         <input
           type="text"
           placeholder="Lọc theo danh mục..."
           value={filterCategory}
           onChange={(e) => setFilterCategory(e.target.value)}
-          style={{ padding: '8px', minWidth: '150px' }}
         />
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value as any)}
-          style={{ padding: '8px' }}
         >
           <option value="">Tất cả trạng thái</option>
           <option value="AVAILABLE">Còn hàng</option>
           <option value="OUT_OF_STOCK">Hết hàng</option>
           <option value="DISCONTINUED">Ngừng bán</option>
         </select>
-        <button onClick={() => refetch()} style={{ padding: '8px 15px' }}>Làm mới</button>
+        <button onClick={() => refetch()} className="product-list-btn-secondary">Làm mới</button>
       </div>
 
       {/* Products Grid */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: '20px' }}>
+      <div className="product-list-grid">
         {products.map((product: any) => (
-          <div key={product.id} style={{ 
-            border: '1px solid #ddd', 
-            borderRadius: '8px', 
-            padding: '15px',
-            backgroundColor: 'white'
-          }}>
+          <div key={product.id} className="product-list-card">
             <img 
               src={product.image || '/placeholder.jpg'} 
               alt={product.name}
-              style={{ width: '100%', height: '200px', objectFit: 'cover', borderRadius: '4px' }}
+              className="product-list-image"
             />
-            <h3 style={{ margin: '10px 0' }}>{product.name}</h3>
-            <p style={{ color: '#666', fontSize: '14px' }}>{product.description}</p>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', margin: '10px 0' }}>
-              <span style={{ fontSize: '18px', fontWeight: 'bold', color: '#e74c3c' }}>
-                {product.price.toLocaleString()}₫
-              </span>
-              <span style={{ fontSize: '14px' }}>Kho: {product.stock}</span>
-            </div>
-            <div style={{ marginBottom: '10px' }}>
-              <span style={{
-                padding: '4px 8px',
-                borderRadius: '4px',
-                fontSize: '12px',
-                color: 'white',
-                backgroundColor: 
-                  product.status === 'AVAILABLE' ? '#27ae60' :
-                  product.status === 'OUT_OF_STOCK' ? '#e74c3c' : '#95a5a6'
-              }}>
+            <div className="product-list-content">
+              <h3 className="product-list-product-title">{product.name}</h3>
+              <p className="product-list-description">{product.description}</p>
+              <div className="product-list-info-row">
+                <span className="product-list-price">{product.price.toLocaleString()}₫</span>
+                <span className="product-list-stock">Kho: {product.stock}</span>
+              </div>
+              <span className={`product-list-status-badge ${product.status === 'AVAILABLE' ? 'available' : product.status === 'OUT_OF_STOCK' ? 'out-of-stock' : 'discontinued'}`}>
                 {product.status === 'AVAILABLE' ? 'Còn hàng' :
                  product.status === 'OUT_OF_STOCK' ? 'Hết hàng' : 'Ngừng bán'}
               </span>
-              <span style={{ marginLeft: '10px', fontSize: '12px', color: '#666' }}>
-                {product.category}
-              </span>
+              <span className="product-list-category">{product.category}</span>
+              <button
+                onClick={() => navigate(`/product/${product.id}`)}
+                className="product-list-detail-button"
+              >
+                Xem chi tiết
+              </button>
+              {user?.role === 'ADMIN' && (
+                <div className="product-list-actions">
+                  <button onClick={() => setEditProduct(product)} className="product-list-edit-button">Sửa</button>
+                  <button onClick={() => handleRemoveProduct(product.id)} className="product-list-delete-button">Xóa</button>
+                </div>
+              )}
             </div>
-            <button
-              onClick={() => navigate(`/product/${product.id}`)}
-              style={{
-                width: '100%',
-                padding: '10px',
-                backgroundColor: '#3498db',
-                color: 'white',
-                border: 'none',
-                borderRadius: '4px',
-                cursor: 'pointer',
-                marginBottom: '10px'
-              }}
-            >
-              Xem chi tiết
-            </button>
-            {/* CRUD product chỉ cho Admin */}
-            {user?.role === 'ADMIN' && (
-              <div style={{ display: 'flex', gap: '8px' }}>
-                <button onClick={() => setEditProduct(product)} style={{background: '#27ae60', color: 'white', border: 0, borderRadius: 4, padding: '6px 12px'}}>Sửa</button>
-                <button onClick={() => handleRemoveProduct(product.id)} style={{background: '#e74c3c', color: 'white', border: 0, borderRadius: 4, padding: '6px 12px'}}>Xóa</button>
-              </div>
-            )}
           </div>
         ))}
       </div>
 
       {products.length === 0 && (
-        <div style={{ textAlign: 'center', marginTop: '50px', color: '#666' }}>
+        <div className="product-list-empty-message">
           Không tìm thấy sản phẩm nào
         </div>
       )}

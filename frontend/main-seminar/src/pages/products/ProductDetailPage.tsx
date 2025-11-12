@@ -3,6 +3,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import { useGetProduct } from "../../hooks";
 import { useCart } from "../../contexts/CartContext";
 import { useAuth } from "../../hooks";
+import './ProductDetailPage.css';
 
 export default function ProductDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -64,179 +65,94 @@ export default function ProductDetailPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '1200px', margin: '0 auto' }}>
-      <button 
-        onClick={() => navigate(-1)}
-        style={{ 
-          padding: '10px 20px', 
-          marginBottom: '20px',
-          backgroundColor: '#6c757d',
-          color: 'white',
-          border: 'none',
-          borderRadius: '4px',
-          cursor: 'pointer'
-        }}
-      >
-        ← Quay lại
-      </button>
+    <div className="product-detail-container">
+      <div className="product-detail-wrapper">
+        <button 
+          onClick={() => navigate(-1)}
+          className="product-detail-back-button"
+        >
+          ← Quay lại
+        </button>
 
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '40px', alignItems: 'start' }}>
-        <div>
+        <div className="product-detail-grid">
           <img
             src={product.image || '/placeholder.jpg'}
             alt={product.name}
-            style={{ 
-              width: '100%', 
-              maxHeight: '500px', 
-              objectFit: 'cover', 
-              borderRadius: '8px',
-              border: '1px solid #ddd'
-            }}
+            className="product-detail-image"
           />
-        </div>
 
-        <div>
-          <h1 style={{ marginBottom: '10px' }}>{product.name}</h1>
-          
-          <div style={{ 
-            padding: '4px 12px',
-            borderRadius: '4px',
-            display: 'inline-block',
-            marginBottom: '15px',
-            fontSize: '14px',
-            color: 'white',
-            backgroundColor: getStatusColor(product.status)
-          }}>
-            {getStatusText(product.status)}
-          </div>
+          <div className="product-detail-info">
+            <h1 className="product-detail-title">{product.name}</h1>
 
-          <div style={{ marginBottom: '15px' }}>
-            <span style={{ 
-              fontSize: '28px', 
-              fontWeight: 'bold', 
-              color: '#e74c3c' 
-            }}>
-              {product.price.toLocaleString()}₫
+            <span className={`product-detail-status ${product.status === 'AVAILABLE' ? 'available' : product.status === 'OUT_OF_STOCK' ? 'out-of-stock' : 'discontinued'}`}>
+              {getStatusText(product.status)}
             </span>
-          </div>
 
-          <div style={{ marginBottom: '15px' }}>
-            <strong>Danh mục:</strong> {product.category}
-          </div>
+            <div className="product-detail-price">{product.price.toLocaleString()}₫</div>
 
-          <div style={{ marginBottom: '15px' }}>
-            <strong>Số lượng trong kho:</strong> {product.stock}
-          </div>
-
-          <div style={{ marginBottom: '20px' }}>
-            <strong>Mô tả:</strong>
-            <p style={{ marginTop: '10px', lineHeight: '1.6', color: '#666' }}>
-              {product.description}
-            </p>
-          </div>
-
-          {user?.role === 'ADMIN' && (
-            <div style={{ marginBottom: '12px', display: 'flex', gap: '8px' }}>
-              <button style={{background:'#27ae60',color:'white',border:0,borderRadius:4,padding:'8px 18px'}}>Sửa</button>
-              <button style={{background:'#e74c3c',color:'white',border:0,borderRadius:4,padding:'8px 18px'}}>Xóa</button>
+            <div className="product-detail-meta">
+              <span className="product-detail-meta-item"><strong>Danh mục:</strong> {product.category}</span>
+              <span className="product-detail-meta-item"><strong>Số lượng trong kho:</strong> {product.stock}</span>
             </div>
-          )}
 
-          {canAddToCart && (
-            <div style={{ marginBottom: '20px' }}>
-              <label style={{ display: 'block', marginBottom: '5px' }}>
-                <strong>Số lượng:</strong>
-              </label>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <button
-                  onClick={() => handleQuantityChange(quantity - 1)}
-                  style={{ 
-                    padding: '5px 10px',
-                    border: '1px solid #ddd',
-                    backgroundColor: '#f8f9fa',
-                    cursor: 'pointer'
-                  }}
-                >
-                  -
-                </button>
-                <input
-                  type="number"
-                  min="1"
-                  max={maxQuantity}
-                  value={quantity}
-                  onChange={e => handleQuantityChange(Math.min(maxQuantity, Math.max(1, parseInt(e.target.value) || 1)))}
-                  style={{ 
-                    width: '80px', 
-                    padding: '8px', 
-                    textAlign: 'center',
-                    border: '1px solid #ddd',
-                    borderRadius: '4px'
-                  }}
-                />
-                <button
-                  onClick={() => handleQuantityChange(quantity + 1)}
-                  style={{ 
-                    padding: '5px 10px',
-                    border: '1px solid #ddd',
-                    backgroundColor: '#f8f9fa',
-                    cursor: 'pointer'
-                  }}
-                >
-                  +
-                </button>
-                <span style={{ color: '#666', fontSize: '14px' }}>
-                  (Tối đa: {maxQuantity})
-                </span>
+            <div className="product-detail-description-box">
+              <span className="product-detail-description-label">Mô tả</span>
+              <p className="product-detail-description">{product.description}</p>
+            </div>
+
+            {user?.role === 'ADMIN' && (
+              <div className="product-detail-admin-actions">
+                <button className="product-detail-edit-btn">Sửa</button>
+                <button className="product-detail-delete-btn">Xóa</button>
               </div>
-              {stockWarning && (
-                <div style={{ color: 'red', marginTop: '8px', fontWeight: 500 }}>{stockWarning}</div>
+            )}
+
+            {canAddToCart && (
+              <div className="product-detail-quantity-box">
+                <span className="product-detail-quantity-label">Số lượng</span>
+                <div className="product-detail-quantity-controls">
+                  <button onClick={() => handleQuantityChange(quantity - 1)} className="product-detail-quantity-button">-</button>
+                  <input
+                    type="number"
+                    min="1"
+                    max={maxQuantity}
+                    value={quantity}
+                    onChange={e => handleQuantityChange(Math.min(maxQuantity, Math.max(1, parseInt(e.target.value) || 1)))}
+                    className="product-detail-quantity-input"
+                  />
+                  <button onClick={() => handleQuantityChange(quantity + 1)} className="product-detail-quantity-button">+</button>
+                  <span className="product-detail-quantity-max">(Tối đa: {maxQuantity})</span>
+                </div>
+                {stockWarning && <div className="product-detail-stock-warning">{stockWarning}</div>}
+              </div>
+            )}
+
+            {user?.role === 'CUSTOMER' && (
+              <div className="product-detail-buttons">
+                <button
+                  onClick={handleAddToCart}
+                  disabled={!canAddToCart}
+                  className="product-detail-add-to-cart"
+                >
+                  {canAddToCart ? 'Thêm vào giỏ hàng' : 'Không thể mua'}
+                </button>
+                <button
+                  onClick={() => navigate('/cart')}
+                  className="product-detail-view-cart"
+                >
+                  Xem giỏ hàng
+                </button>
+              </div>
+            )}
+
+            <div className="product-detail-info-section">
+              <h4>Thông tin sản phẩm</h4>
+              <p><strong>Mã sản phẩm:</strong> {product.id}</p>
+              <p><strong>Ngày tạo:</strong> {new Date(product.createdAt).toLocaleDateString('vi-VN')}</p>
+              {product.updatedAt && (
+                <p><strong>Cập nhật lần cuối:</strong> {new Date(product.updatedAt).toLocaleDateString('vi-VN')}</p>
               )}
             </div>
-          )}
-
-          {user?.role === 'CUSTOMER' && (
-            <div style={{ display: 'flex', gap: '10px' }}>
-              <button
-                onClick={handleAddToCart}
-                disabled={!canAddToCart}
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: canAddToCart ? '#28a745' : '#6c757d',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: canAddToCart ? 'pointer' : 'not-allowed',
-                  fontSize: '16px',
-                  flex: 1
-                }}
-              >
-                {canAddToCart ? 'Thêm vào giỏ hàng' : 'Không thể mua'}
-              </button>
-              
-              <button
-                onClick={() => navigate('/cart')}
-                style={{
-                  padding: '12px 24px',
-                  backgroundColor: '#17a2b8',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '4px',
-                  cursor: 'pointer',
-                  fontSize: '16px'
-                }}
-              >
-                Xem giỏ hàng
-              </button>
-            </div>
-          )}
-
-          <div style={{ marginTop: '20px', padding: '15px', backgroundColor: '#f8f9fa', borderRadius: '4px' }}>
-            <h4>Thông tin sản phẩm</h4>
-            <p><strong>Mã sản phẩm:</strong> {product.id}</p>
-            <p><strong>Ngày tạo:</strong> {new Date(product.createdAt).toLocaleDateString('vi-VN')}</p>
-            {product.updatedAt && (
-              <p><strong>Cập nhật lần cuối:</strong> {new Date(product.updatedAt).toLocaleDateString('vi-VN')}</p>
-            )}
           </div>
         </div>
       </div>

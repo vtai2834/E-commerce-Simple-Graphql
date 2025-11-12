@@ -5,6 +5,7 @@ import { login } from "../../store/authenticator-slice";
 import Cookies from "js-cookie";
 import { useNavigate, useLocation } from "react-router-dom";
 import { SSOCOOKIES, EXPIPRE_TIME_TOKEN } from "../../constants";
+import './LoginPage.css';
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -62,65 +63,31 @@ export default function LoginPage() {
   };
 
   return (
-    <div style={{ padding: '20px', maxWidth: '400px', margin: '0 auto' }}>
-      <form onSubmit={handleSubmit}>
-        <h2>Đăng nhập</h2>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label>Email:</label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
-        </div>
-        
-        <div style={{ marginBottom: '10px' }}>
-          <label>Mật khẩu:</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          />
-        </div>
-        
-        <div style={{ marginBottom: '20px' }}>
-          <label>Vai trò:</label>
-          <select
-            value={role}
-            onChange={(e) => setRole(e.target.value as "ADMIN" | "CUSTOMER")}
-            style={{ width: '100%', padding: '8px', marginTop: '5px' }}
-          >
-            <option value="CUSTOMER">Khách hàng (Customer)</option>
-            <option value="ADMIN">Quản trị viên (Admin)</option>
-          </select>
-        </div>
-        
-        <button 
-          type="submit" 
-          disabled={loading}
-          style={{ 
-            width: '100%', 
-            padding: '10px', 
-            backgroundColor: loading ? '#ccc' : '#007bff',
-            color: 'white',
-            border: 'none',
-            cursor: loading ? 'not-allowed' : 'pointer'
-          }}
-        >
-          {loading ? "Đang đăng nhập..." : "Đăng nhập"}
-        </button>
-        
-        {error && (
-          <div style={{ color: 'red', marginTop: '10px' }}>
-            Lỗi: {error.message}
+    <div className="login-container">
+      <div className="login-card">
+        <form className="login-form" onSubmit={handleSubmit}>
+          <h2 className="login-title">Đăng nhập</h2>
+          <div>
+            <label className="login-label">Email:</label>
+            <input type="email" className="login-input" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
-        )}
-      </form>
+          <div>
+            <label className="login-label">Mật khẩu:</label>
+            <input type="password" className="login-input" value={password} onChange={e => setPassword(e.target.value)} required />
+          </div>
+          <div>
+            <label className="login-label">Vai trò:</label>
+            <select className="login-input" value={role} onChange={e => setRole(e.target.value as "ADMIN" | "CUSTOMER") }>
+              <option value="CUSTOMER">Khách hàng (Customer)</option>
+              <option value="ADMIN">Quản trị viên (Admin)</option>
+            </select>
+          </div>
+          <button type="submit" disabled={loading} className="login-btn">
+            {loading ? "Đang đăng nhập..." : "Đăng nhập"}
+          </button>
+          {error && <div className="login-error">Lỗi: {error.message}</div>}
+        </form>
+      </div>
     </div>
   );
 }
