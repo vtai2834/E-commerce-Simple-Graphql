@@ -27,6 +27,8 @@ export default function CartPage() {
     zipCode: ''
   });
 
+  const [stockWarning, setStockWarning] = useState<string|null>(null);
+
   const handleCreateOrder = async () => {
     if (!user.id) {
       alert("Vui lòng đăng nhập để đặt hàng!");
@@ -35,6 +37,11 @@ export default function CartPage() {
 
     if (cart.length === 0) {
       alert("Giỏ hàng trống!");
+      return;
+    }
+
+    if (cart.some(item => item.quantity > item.stock)) {
+      alert('Có sản phẩm vượt quá số lượng kho, vui lòng kiểm tra lại.');
       return;
     }
 
@@ -142,26 +149,31 @@ export default function CartPage() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                   <span>Số lượng:</span>
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity - 1)}
+                    onClick={() => {
+                      if (item.quantity > 1) updateQuantity(item.id, item.quantity - 1);
+                    }}
                     style={{ 
                       padding: '5px 10px',
                       border: '1px solid #ddd',
                       backgroundColor: '#f8f9fa',
                       cursor: 'pointer'
                     }}
-                  >
-                    -
-                  </button>
+                  >-</button>
                   <span style={{ 
                     padding: '5px 15px',
                     border: '1px solid #ddd',
                     minWidth: '50px',
                     textAlign: 'center'
-                  }}>
-                    {item.quantity}
-                  </span>
+                  }}>{item.quantity}</span>
                   <button
-                    onClick={() => updateQuantity(item.id, item.quantity + 1)}
+                    onClick={() => {
+                      if (item.quantity < item.stock) {
+                        setStockWarning(null);
+                        updateQuantity(item.id, item.quantity + 1);
+                      } else {
+                        setStockWarning('Vượt quá số lượng còn trong kho!');
+                      }
+                    }}
                     disabled={item.quantity >= item.stock}
                     style={{ 
                       padding: '5px 10px',
@@ -169,10 +181,11 @@ export default function CartPage() {
                       backgroundColor: item.quantity >= item.stock ? '#e9ecef' : '#f8f9fa',
                       cursor: item.quantity >= item.stock ? 'not-allowed' : 'pointer'
                     }}
-                  >
-                    +
-                  </button>
-                  
+                  >+</button>
+                  {/* cảnh báo nếu có */}
+                  {stockWarning && (
+                    <span style={{ color: 'red', fontWeight:500 }}>{stockWarning}</span>
+                  )}
                   <button
                     onClick={() => removeFromCart(item.id)}
                     style={{

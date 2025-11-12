@@ -10,15 +10,30 @@ export default function ProductDetailPage() {
   const { product, loading, error } = useGetProduct(id!);
   const { addToCart } = useCart();
   const [quantity, setQuantity] = useState(1);
+  const [stockWarning, setStockWarning] = useState<string|null>(null);
   const { user } = useAuth();
 
   if (loading) return <div>Đang tải thông tin sản phẩm...</div>;
   if (error || !product) return <div>Lỗi: Không thể tải thông tin sản phẩm</div>;
 
   const canAddToCart = product.status === 'AVAILABLE' && product.stock > 0;
-  const maxQuantity = Math.min(product.stock, 10); // Giới hạn tối đa 10 sản phẩm mỗi lần
+  const maxQuantity = Math.min(product.stock, 10); // Giới hạn tối đa 10 sản phẩm nhưng không vượt stock
+
+  const handleQuantityChange = (v: number) => {
+    if (v < 1) v = 1;
+    if (v > product.stock) {
+      setStockWarning('Vượt quá số lượng còn lại trong kho!');
+      return;
+    }
+    setStockWarning(null);
+    setQuantity(v);
+  };
 
   const handleAddToCart = () => {
+    if (quantity > product.stock) {
+      setStockWarning('Không đủ sản phẩm trong kho để mua!');
+      return;
+    }
     addToCart({
       id: product.id,
       name: product.name,
@@ -134,7 +149,7 @@ export default function ProductDetailPage() {
               </label>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
                 <button
-                  onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                  onClick={() => handleQuantityChange(quantity - 1)}
                   style={{ 
                     padding: '5px 10px',
                     border: '1px solid #ddd',
@@ -149,7 +164,7 @@ export default function ProductDetailPage() {
                   min="1"
                   max={maxQuantity}
                   value={quantity}
-                  onChange={(e) => setQuantity(Math.min(maxQuantity, Math.max(1, parseInt(e.target.value) || 1)))}
+                  onChange={e => handleQuantityChange(Math.min(maxQuantity, Math.max(1, parseInt(e.target.value) || 1)))}
                   style={{ 
                     width: '80px', 
                     padding: '8px', 
@@ -159,7 +174,7 @@ export default function ProductDetailPage() {
                   }}
                 />
                 <button
-                  onClick={() => setQuantity(Math.min(maxQuantity, quantity + 1))}
+                  onClick={() => handleQuantityChange(quantity + 1)}
                   style={{ 
                     padding: '5px 10px',
                     border: '1px solid #ddd',
@@ -173,6 +188,9 @@ export default function ProductDetailPage() {
                   (Tối đa: {maxQuantity})
                 </span>
               </div>
+              {stockWarning && (
+                <div style={{ color: 'red', marginTop: '8px', fontWeight: 500 }}>{stockWarning}</div>
+              )}
             </div>
           )}
 
