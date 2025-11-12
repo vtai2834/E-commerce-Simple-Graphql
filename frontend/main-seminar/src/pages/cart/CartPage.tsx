@@ -16,6 +16,8 @@ export default function CartPage() {
   const [createOrder, { loading }] = useCreateOrder();
   const { user } = useAuth();
   const navigate = useNavigate();
+
+  console.log("user trong trang cart: ", user);
   
   const [shippingAddress, setShippingAddress] = useState({
     street: '',

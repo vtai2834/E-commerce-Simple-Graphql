@@ -14,7 +14,10 @@ async function loginCustomer({ email, password }) {
     const refreshToken = signRefreshToken(payload);
 
     await storeToken(user._id.toString(), 'CUSTOMER', accessToken, refreshToken);
-    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: { ...user.toObject(), role: 'CUSTOMER' } };
+    const userObj = { ...user.toObject(), id: user._id.toString(), role: 'CUSTOMER' };
+    delete userObj._id;
+    delete userObj.__v;
+    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: userObj };
 }
 
 async function loginAdmin({ email, password }) {
@@ -25,7 +28,10 @@ async function loginAdmin({ email, password }) {
     const accessToken = signAccessToken(payload);
     const refreshToken = signRefreshToken(payload);
     await storeToken(user._id.toString(), 'ADMIN', accessToken, refreshToken);
-    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: { ...user.toObject(), role: 'ADMIN' } };
+    const userObj = { ...user.toObject(), id: user._id.toString(), role: 'ADMIN' };
+    delete userObj._id;
+    delete userObj.__v;
+    return { code: RESPONSE_CODE.SUCCESS_MUTATION, isSuccess: true, message: 'Login successful', accessToken, refreshToken, user: userObj };
 }
 
 async function logout({ userId }) {
@@ -100,7 +106,9 @@ async function getMeInfo({ accessToken }) {
             message: 'User not found'
         }));
     }
-    user.role = payload.role;
+    let userObj = { ...user.toObject(), id: user._id.toString(), role: payload.role };
+    delete userObj._id;
+    delete userObj.__v;
     console.log("user: ", user);
     return { 
         code: RESPONSE_CODE.SUCCESS_QUERY, 
@@ -108,7 +116,7 @@ async function getMeInfo({ accessToken }) {
         message: 'Get user info success', 
         accessToken, 
         refreshToken, 
-        user,
+        user: userObj,
     };
 }
 
