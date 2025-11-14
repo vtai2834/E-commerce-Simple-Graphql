@@ -24,6 +24,7 @@ export default function ProductDetailPage() {
     if (v < 1) v = 1;
     if (v > product.stock) {
       setStockWarning('Vượt quá số lượng còn lại trong kho!');
+      setQuantity(product.stock);
       return;
     }
     setStockWarning(null);
@@ -55,15 +56,6 @@ export default function ProductDetailPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'AVAILABLE': return '#27ae60';
-      case 'OUT_OF_STOCK': return '#e74c3c'; 
-      case 'DISCONTINUED': return '#95a5a6';
-      default: return '#666';
-    }
-  };
-
   return (
     <div className="product-detail-container">
       <div className="product-detail-wrapper">
@@ -84,7 +76,7 @@ export default function ProductDetailPage() {
           <div className="product-detail-info">
             <h1 className="product-detail-title">{product.name}</h1>
 
-            <span className={`product-detail-status ${product.status === 'AVAILABLE' ? 'available' : product.status === 'OUT_OF_STOCK' ? 'out-of-stock' : 'discontinued'}`}>
+            <span className={`product-detail-status ${product.status.toLowerCase()}`}>
               {getStatusText(product.status)}
             </span>
 
@@ -111,7 +103,7 @@ export default function ProductDetailPage() {
               <div className="product-detail-quantity-box">
                 <span className="product-detail-quantity-label">Số lượng</span>
                 <div className="product-detail-quantity-controls">
-                  <button onClick={() => handleQuantityChange(quantity - 1)} className="product-detail-quantity-button">-</button>
+                  <button onClick={() => handleQuantityChange(quantity - 1)} disabled={quantity <= 1} className="product-detail-quantity-button">-</button>
                   <input
                     type="number"
                     min="1"
@@ -120,7 +112,7 @@ export default function ProductDetailPage() {
                     onChange={e => handleQuantityChange(Math.min(maxQuantity, Math.max(1, parseInt(e.target.value) || 1)))}
                     className="product-detail-quantity-input"
                   />
-                  <button onClick={() => handleQuantityChange(quantity + 1)} className="product-detail-quantity-button">+</button>
+                  <button onClick={() => handleQuantityChange(quantity + 1)} disabled={quantity >= maxQuantity} className="product-detail-quantity-button">+</button>
                   <span className="product-detail-quantity-max">(Tối đa: {maxQuantity})</span>
                 </div>
                 {stockWarning && <div className="product-detail-stock-warning">{stockWarning}</div>}

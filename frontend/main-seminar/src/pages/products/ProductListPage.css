@@ -1,12 +1,12 @@
-/* Product List Page Styles - Modern Design */
 .product-list-page {
-    background: #f8fafc;
+    background: var(--color-bg-secondary);
     min-height: 100vh;
     padding: 24px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
   }
   
   .product-list-header {
-    max-width: 1400px;
     margin: 0 auto 32px;
     display: flex;
     justify-content: space-between;
@@ -18,7 +18,7 @@
   .product-list-title {
     font-size: 32px;
     font-weight: 800;
-    color: #1e293b;
+    color: var(--color-text-primary);
     margin: 0;
   }
   
@@ -31,59 +31,78 @@
   
   .product-list-greeting {
     font-size: 14px;
-    color: #64748b;
+    color: var(--color-text-secondary);
     font-weight: 500;
   }
   
-  .product-list-button,
   .product-list-btn-primary,
-  .product-list-btn-secondary {
-    background: #2563eb;
-    color: white;
+  .product-list-btn-secondary,
+  .product-list-btn-logout,
+  .product-list-button /* Giữ lại class cũ để tương thích */ {
     border: none;
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     transition: all 0.2s ease;
   }
   
-  .product-list-button:hover,
-  .product-list-btn-primary:hover {
-    background: #1d4ed8;
+  .product-list-btn-primary {
+    background: var(--color-primary);
+    color: white;
+  }
+  .product-list-btn-primary:hover:not(:disabled) {
+    background: var(--color-primary-dark);
     transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+    box-shadow: 0 4px 12px var(--color-primary-light-bg);
+  }
+  .product-list-btn-primary:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
   
-  .product-list-btn-secondary {
-    background: #64748b;
+  .product-list-btn-secondary,
+  .product-list-button {
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
+  }
+  .product-list-btn-secondary:hover,
+  .product-list-button:hover {
+    background: var(--color-border);
   }
   
-  .product-list-btn-secondary:hover {
-    background: #475569;
+  .product-list-btn-logout {
+    background: var(--color-danger-light-bg);
+    color: var(--color-danger);
+    border: 1px solid var(--color-danger-light-border);
+  }
+  .product-list-btn-logout:hover {
+    background: var(--color-danger);
+    color: white;
   }
   
   .product-list-filters {
-    max-width: 1400px;
     margin: 0 auto 28px;
     display: flex;
     gap: 12px;
     flex-wrap: wrap;
-    background: white;
+    background: var(--color-bg-primary);
     padding: 16px;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
   }
   
   .product-list-filters input,
   .product-list-filters select {
     padding: 10px 14px;
-    border-radius: 8px;
-    border: 1.5px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    border: 1.5px solid var(--color-border);
     font-size: 14px;
-    background: #f8fafc;
-    color: #1e293b;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
     transition: all 0.2s ease;
     flex: 1;
     min-width: 150px;
@@ -92,12 +111,11 @@
   .product-list-filters input:focus,
   .product-list-filters select:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light-bg);
   }
   
   .product-list-grid {
-    max-width: 1400px;
     margin: 0 auto;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -105,27 +123,28 @@
   }
   
   .product-list-card {
-    background: white;
+    background: var(--color-bg-primary);
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+    box-shadow: var(--shadow-sm);
     overflow: hidden;
     transition: all 0.3s ease;
     display: flex;
     flex-direction: column;
-    border: 1px solid #e2e8f0;
+    border: 1px solid var(--color-border);
   }
   
   .product-list-card:hover {
-    box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     transform: translateY(-4px);
-    border-color: #2563eb;
   }
   
   .product-list-image {
     width: 100%;
     height: 240px;
     object-fit: cover;
-    background: #f8fafc;
+    background: var(--color-bg-secondary);
+    border-bottom: 1px solid var(--color-border);
+    cursor: pointer;
   }
   
   .product-list-content {
@@ -133,41 +152,48 @@
     flex: 1;
     display: flex;
     flex-direction: column;
+    text-align: left;
   }
   
   .product-list-product-title {
     font-size: 16px;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--color-text-primary);
     margin: 0 0 8px 0;
     line-height: 1.4;
+    cursor: pointer;
+  }
+  .product-list-product-title:hover {
+    color: var(--color-primary);
   }
   
   .product-list-description {
     font-size: 13px;
-    color: #64748b;
+    color: var(--color-text-secondary);
     margin: 0 0 12px 0;
     line-height: 1.5;
     flex: 1;
+    min-height: 40px;
   }
   
   .product-list-info-row {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 12px;
+    margin-bottom: 8px;
     font-size: 14px;
   }
   
   .product-list-price {
     font-weight: 800;
-    color: #dc2626;
+    color: var(--color-danger);
     font-size: 16px;
   }
   
   .product-list-stock {
-    color: #64748b;
+    color: var(--color-text-secondary);
     font-size: 13px;
+    margin-bottom: 12px;
   }
   
   .product-list-status-badge {
@@ -176,35 +202,37 @@
     border-radius: 20px;
     font-size: 12px;
     font-weight: 600;
-    margin-bottom: 12px;
     color: white;
+    text-transform: capitalize;
   }
   
   .product-list-status-badge.available {
-    background: #10b981;
+    background: var(--color-success);
   }
   
+  .product-list-status-badge.out_of_stock,
   .product-list-status-badge.out-of-stock {
-    background: #dc2626;
+    background: var(--color-danger);
   }
   
   .product-list-status-badge.discontinued {
-    background: #6b7280;
+    background: var(--color-text-secondary);
   }
   
   .product-list-category {
-    color: #2563eb;
+    color: var(--color-primary);
     font-size: 12px;
     font-weight: 600;
-    margin-bottom: 12px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
   }
   
   .product-list-detail-button {
-    background: #2563eb;
-    color: white;
-    border: none;
+    background: var(--color-bg-tertiary);
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border);
     padding: 10px 16px;
-    border-radius: 8px;
+    border-radius: var(--border-radius);
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
@@ -214,7 +242,7 @@
   }
   
   .product-list-detail-button:hover {
-    background: #1d4ed8;
+    background: var(--color-border);
   }
   
   .product-list-actions {
@@ -235,8 +263,8 @@
   }
   
   .product-list-edit-button {
-    background: #fbbf24;
-    color: #78350f;
+    background: var(--color-warning);
+    color: var(--color-warning-dark);
   }
   
   .product-list-edit-button:hover {
@@ -244,36 +272,44 @@
   }
   
   .product-list-delete-button {
-    background: #dc2626;
+    background: var(--color-danger);
     color: white;
   }
   
-  .product-list-delete-button:hover {
-    background: #b91c1c;
+  .product-list-delete-button:hover:not(:disabled) {
+    background: var(--color-danger-dark);
+  }
+  .product-list-delete-button:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
   }
   
   .product-list-form {
-    max-width: 1400px;
     margin: 0 auto 28px;
-    background: white;
+    background: var(--color-bg-primary);
     padding: 24px;
     border-radius: 12px;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-    border: 1px solid #e2e8f0;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--color-border);
   }
   
   .product-list-form h4 {
     font-size: 18px;
     font-weight: 700;
-    color: #1e293b;
+    color: var(--color-text-primary);
     margin: 0 0 20px 0;
+    text-align: left;
   }
   
   .product-list-form-fields {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 16px;
     margin-bottom: 16px;
+  }
+  
+  .product-list-form-fields textarea {
+    grid-column: 1 / -1;
   }
   
   .product-list-form input,
@@ -282,11 +318,11 @@
     flex: 1;
     min-width: 150px;
     padding: 10px 14px;
-    border-radius: 8px;
-    border: 1.5px solid #e2e8f0;
+    border-radius: var(--border-radius);
+    border: 1.5px solid var(--color-border);
     font-size: 14px;
-    background: #f8fafc;
-    color: #1e293b;
+    background: var(--color-bg-secondary);
+    color: var(--color-text-primary);
     transition: all 0.2s ease;
   }
   
@@ -294,8 +330,8 @@
   .product-list-form textarea:focus,
   .product-list-form select:focus {
     outline: none;
-    border-color: #2563eb;
-    box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px var(--color-primary-light-bg);
   }
   
   .product-list-form-buttons {
@@ -305,7 +341,7 @@
   
   .product-list-empty-message {
     text-align: center;
-    color: #64748b;
+    color: var(--color-text-secondary);
     font-size: 16px;
     padding: 60px 20px;
   }
@@ -317,7 +353,7 @@
     }
   
     .product-list-grid {
-      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      grid-template-columns: 1fr;
       gap: 16px;
     }
   
@@ -330,5 +366,8 @@
       min-width: auto;
       width: 100%;
     }
+
+    .product-list-form-fields {
+      grid-template-columns: 1fr;
+    }
   }
-  

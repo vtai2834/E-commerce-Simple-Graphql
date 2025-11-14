@@ -22,24 +22,13 @@ export default function OrderHistoryPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status) {
-      case 'PENDING': return '#ffc107';
-      case 'PROCESSING': return '#17a2b8';
-      case 'SHIPPED': return '#007bff';
-      case 'DELIVERED': return '#28a745';
-      case 'CANCELLED': return '#dc3545';
-      default: return '#6c757d';
-    }
-  };
-
   return (
     <div className="order-page">
       <div className="order-header">
         <h2 className="order-header-title">Lịch sử đơn hàng</h2>
         <div className="order-actions">
-          <button onClick={() => navigate('/products')} className="order-btn">Tiếp tục mua sắm</button>
-          <button onClick={() => refetch()} className="order-btn">Làm mới</button>
+          <button onClick={() => navigate('/products')} className="order-btn-primary">Tiếp tục mua sắm</button>
+          <button onClick={() => refetch()} className="order-btn-secondary">Làm mới</button>
         </div>
       </div>
 
@@ -47,7 +36,7 @@ export default function OrderHistoryPage() {
         <div className="order-empty">
           <h3>Bạn chưa có đơn hàng nào</h3>
           <p>Hãy bắt đầu mua sắm để tạo đơn hàng đầu tiên!</p>
-          <button onClick={() => navigate('/products')} className="order-btn">Mua sắm ngay</button>
+          <button onClick={() => navigate('/products')} className="order-btn-primary">Mua sắm ngay</button>
         </div>
       ) : (
         <div className="order-list">
@@ -66,8 +55,8 @@ export default function OrderHistoryPage() {
                     })}
                   </p>
                 </div>
-                <div>
-                  <div className={`order-status ${order.status}`}>{getStatusText(order.status)}</div>
+                <div className="order-status-and-total">
+                  <div className={`order-status ${order.status.toLowerCase()}`}>{getStatusText(order.status)}</div>
                   <div className="order-total">{order.totalAmount.toLocaleString()}₫</div>
                 </div>
               </div>
@@ -79,7 +68,7 @@ export default function OrderHistoryPage() {
                       Sản phẩm ID: {item.productId}
                       <span className="order-item-meta"> x{item.quantity}</span>
                     </div>
-                    <div className="order-item-meta">
+                    <div className="order-item-price">
                       {(item.price * item.quantity).toLocaleString()}₫
                     </div>
                   </div>
@@ -88,7 +77,7 @@ export default function OrderHistoryPage() {
 
               {order.shippingAddress && (
                 <div className="order-shipping-box">
-                  Địa chỉ giao hàng: {[
+                  <strong>Địa chỉ giao hàng:</strong> {[
                     order.shippingAddress.street,
                     order.shippingAddress.city,
                     order.shippingAddress.state,
@@ -99,8 +88,8 @@ export default function OrderHistoryPage() {
               )}
 
               <div className="order-summary-row">
-                <span>Tổng sản phẩm: {order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)}</span>
-                <span>Tổng tiền: <span className="order-total">{order.totalAmount.toLocaleString()}₫</span></span>
+                <span>Tổng sản phẩm: <strong>{order.items.reduce((sum: number, item: any) => sum + item.quantity, 0)}</strong></span>
+                <span>Tổng tiền: <span className="order-total-text">{order.totalAmount.toLocaleString()}₫</span></span>
               </div>
             </div>
           ))}

@@ -67,15 +67,15 @@ export default function LoginPage() {
       <div className="login-card">
         <form className="login-form" onSubmit={handleSubmit}>
           <h2 className="login-title">Đăng nhập</h2>
-          <div>
+          <div className="login-form-group">
             <label className="login-label">Email:</label>
             <input type="email" className="login-input" value={email} onChange={e => setEmail(e.target.value)} required />
           </div>
-          <div>
+          <div className="login-form-group">
             <label className="login-label">Mật khẩu:</label>
             <input type="password" className="login-input" value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
-          <div>
+          <div className="login-form-group">
             <label className="login-label">Vai trò:</label>
             <select className="login-input" value={role} onChange={e => setRole(e.target.value as "ADMIN" | "CUSTOMER") }>
               <option value="CUSTOMER">Khách hàng (Customer)</option>

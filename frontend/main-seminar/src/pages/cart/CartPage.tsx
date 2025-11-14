@@ -77,10 +77,10 @@ export default function CartPage() {
       <div className="cart-container">
         <div className="cart-header">
           <h2>Giỏ hàng trống</h2>
-          <button onClick={() => navigate('/products')} className="cart-btn">Tiếp tục mua sắm</button>
+          <button onClick={() => navigate('/products')} className="cart-btn-primary">Tiếp tục mua sắm</button>
         </div>
         <div className="cart-main">
-          <div className="cart-list" style={{alignItems:'center'}}>
+          <div className="cart-list" style={{alignItems:'center', justifyContent: 'center', background: 'var(--color-bg-primary)', padding: '40px', borderRadius: 'var(--border-radius)', border: '1px solid var(--color-border)', minHeight: '300px'}}>
             <p>Bạn chưa thêm sản phẩm nào vào giỏ hàng.</p>
           </div>
         </div>
@@ -92,7 +92,7 @@ export default function CartPage() {
     <div className="cart-container">
       <div className="cart-header">
         <h2>Giỏ hàng ({getTotalItems()} sản phẩm)</h2>
-        <button onClick={() => navigate('/products')} className="cart-btn">Tiếp tục mua sắm</button>
+        <button onClick={() => navigate('/products')} className="cart-btn-primary">Tiếp tục mua sắm</button>
       </div>
 
       <div className="cart-main">
@@ -122,9 +122,14 @@ export default function CartPage() {
                     }}
                     className="cart-qty-bt"
                   >-</button>
-                  <span className="cart-qty-amount">
-                    {item.quantity}
-                  </span>
+                  <input
+                    type="number"
+                    min="1"
+                    max={item.stock}
+                    value={item.quantity}
+                    onChange={e => updateQuantity(item.id, Math.min(item.stock, Math.max(1, parseInt(e.target.value) || 1)))}
+                    className="cart-qty-input"
+                  />
                   <button
                     onClick={() => {
                       if (item.quantity < item.stock) {
@@ -137,10 +142,6 @@ export default function CartPage() {
                     disabled={item.quantity >= item.stock}
                     className="cart-qty-bt"
                   >+</button>
-                  {/* cảnh báo nếu có */}
-                  {stockWarning && (
-                    <span className="cart-warning">{stockWarning}</span>
-                  )}
                   <button
                     onClick={() => removeFromCart(item.id)}
                     className="cart-remove-btn"
@@ -148,12 +149,13 @@ export default function CartPage() {
                     Xóa
                   </button>
                 </div>
+                {stockWarning && item.id === (cart.find(i => i.quantity >= i.stock)?.id) && (
+                  <span className="cart-warning">{stockWarning}</span>
+                )}
               </div>
               
-              <div className="cart-item-price">
-                <div className="cart-item-price">
-                  {(item.price * item.quantity).toLocaleString()}₫
-                </div>
+              <div className="cart-item-total-price">
+                {(item.price * item.quantity).toLocaleString()}₫
               </div>
             </div>
           ))}
@@ -166,7 +168,6 @@ export default function CartPage() {
           </button>
         </div>
 
-        {/* Order Summary */}
         <div className="cart-summary">
           <div className="cart-summary-title">Tóm tắt đơn hàng</div>
           <div className="cart-summary-row">

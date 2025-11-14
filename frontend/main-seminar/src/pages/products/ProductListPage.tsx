@@ -24,6 +24,7 @@ export default function ProductListPage() {
 
   const [showCreate, setShowCreate] = useState(false);
   const [editProduct, setEditProduct] = useState<any>(null); // sản phẩm đang edit
+  const [deletingId, setDeletingId] = useState<string | null>(null); // State mới để theo dõi ID đang xoá
 
   const [createProduct, createResult] = useCreateProduct();
   const [updateProduct, updateResult] = useUpdateProduct();
@@ -65,11 +66,20 @@ export default function ProductListPage() {
 
   const handleRemoveProduct = async (id: string) => {
     if (!window.confirm("Bạn có chắc muốn xóa sản phẩm này?")) return;
-    const res = await removeProduct(id);
-    if (res.data?.removeProduct?.isSuccess) {
-      refetch();
-    } else {
-      alert(res.data?.removeProduct?.message || "Xóa thất bại");
+    
+    setDeletingId(id); // Bắt đầu xoá, set ID
+    try {
+      const res = await removeProduct(id);
+      if (res.data?.removeProduct?.isSuccess) {
+        refetch();
+      } else {
+        alert(res.data?.removeProduct?.message || "Xóa thất bại");
+      }
+    } catch (err) {
+      console.error("Lỗi khi xoá:", err);
+      alert("Có lỗi xảy ra khi xoá sản phẩm.");
+    } finally {
+      setDeletingId(null); // Xoá xong (thành công hay thất bại) thì clear ID
     }
   };
 
@@ -181,7 +191,13 @@ export default function ProductListPage() {
               {user?.role === 'ADMIN' && (
                 <div className="product-list-actions">
                   <button onClick={() => setEditProduct(product)} className="product-list-edit-button">Sửa</button>
-                  <button onClick={() => handleRemoveProduct(product.id)} className="product-list-delete-button">Xóa</button>
+                  <button 
+                    onClick={() => handleRemoveProduct(product.id)} 
+                    className="product-list-delete-button"
+                    disabled={deletingId === product.id} 
+                  >
+                    {deletingId === product.id ? 'Đang xoá...' : 'Xóa'}
+                  </button>
                 </div>
               )}
             </div>
